@@ -1,0 +1,28 @@
+#main_page {
+  text-align: center;
+
+  h1 {
+    font-size: 4rem;
+    font-weight: 800;
+    color: var(--textColor);
+    padding-top: 90px;
+  }
+
+  p {
+    font-size: 1.7rem;
+    color: #b8b8b8;
+    margin-top: 40px;
+  }
+
+  div {
+    background-color: #131553;
+    width: 100vw;
+    height: 40vh;
+    margin-top: 60vh;
+    h3 {
+      font-size: 1.7rem;
+      font-weight: 500;
+      color: var(--white);
+    }
+  }
+}

@@ -1,0 +1,21 @@
+#header {
+  position: fixed;
+  display: flex;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 76px;
+  background-color: var(--white);
+}
+
+#main {
+  max-width: 100vw;
+  min-height: 100vh;
+  margin-top: 76px;
+  background-color: var(--bgColor);
+}
+
+#footer {
+  text-align: center;
+  background-color: var(--bgColor);
+}
