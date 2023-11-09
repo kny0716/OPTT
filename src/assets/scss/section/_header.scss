@@ -2,38 +2,41 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 5px;
-  padding-right: 5vw;
-  border-bottom: 1px solid var(--black);
+  filter: drop-shadow(0 0 0.7rem rgb(0 0 0 / 10%));
 }
 
 .header__logo {
   display: flex;
-  a {
-    margin: 10px;
-    span {
-      color: var(--textColor);
-      padding-left: 30px;
-      font-size: 36px;
-      font-weight: 900;
-    }
+  img {
+    margin-left: 137px;
+    padding-bottom: 5px;
+    width: 127px;
+    height: 45px;
   }
 }
 
 .header__menu {
   ul {
     display: flex;
+    margin: 137px;
+    font-family: "Nanum Gothic", sans-serif;
     li {
-      margin-left: 15px;
-      a {
-        font-size: 1rem;
-        font-weight: 800;
+      font-size: 1.15rem;
+      font-weight: 700;
+
+      #login {
         padding: 0.5rem 1rem 0.5rem 1rem;
         margin: 0 0.625rem;
-        border-radius: 10px;
-        border: 1px solid #383fb0;
+        color: #1e3456;
+      }
+      #register {
+        padding: 0.7rem 1rem 0.7rem 1rem;
+        margin: 0 0.625rem;
+        border: 3.5px solid #383fb0;
+        border-radius: 15px;
         transition: all 0.2s;
         color: #0c0856;
+        font-weight: 800;
 
         &:hover {
           background-color: #ebfafe;
