@@ -1,28 +1,57 @@
-#main_page {
+#main__page {
   text-align: center;
 
   h1 {
     font-size: 4rem;
     font-weight: 800;
     color: var(--textColor);
-    padding-top: 90px;
+    padding-top: 80px;
   }
 
   p {
     font-size: 1.7rem;
     color: #b8b8b8;
-    margin-top: 40px;
+    margin-top: 10px;
   }
 
   div {
-    background-color: #131553;
+    background-color: rgba(33, 37, 127, 0.9);
     width: 100vw;
-    height: 40vh;
-    margin-top: 60vh;
-    h3 {
-      font-size: 1.7rem;
-      font-weight: 500;
-      color: var(--white);
+    height: 45vh;
+    margin-top: 35vh;
+
+    li {
+      list-style-type: none;
+      img {
+        margin-top: 6%;
+        width: 380px;
+        height: 120px;
+        object-fit: cover;
+        filter: drop-shadow(0 0 0.7rem rgb(0 0 0 / 50%));
+      }
+      h3 {
+        display: block;
+        margin-top: 1%;
+        font-size: 1.6rem;
+        font-weight: 600;
+        color: var(--white);
+      }
     }
+  }
+
+  #home__character {
+    // 모니터 기준
+    // top: 37%;
+    // left: 41.5%;
+    // position: absolute;
+    // width: 16%;
+    // height: 31.8%;
+    // 노트북 기준
+    position: absolute;
+    top: 38%;
+    left: 50%;
+    width: 26%;
+    height: 41.8%;
+    transform: translateX(-50%);
   }
 }
