@@ -20,6 +20,8 @@
     height: 45vh;
     margin-top: 35vh;
 
+    position: relative;
+
     li {
       list-style-type: none;
       img {
@@ -48,10 +50,14 @@
     // height: 31.8%;
     // 노트북 기준
     position: absolute;
-    top: 38%;
-    left: 50%;
-    width: 26%;
-    height: 41.8%;
-    transform: translateX(-50%);
+    top: 0;
+    left: 0;
+    // width: 80%;
+    height: 90%;
+    // top: 38%;
+    // left: 50%;
+    // width: 26%;
+    // height: 41.8%;
+    transform: translate(0%, -80%);
   }
 }
