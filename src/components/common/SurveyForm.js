@@ -79,18 +79,19 @@ export default function SurveyForm(props) {
       <div className="survey__div">
         <div className="survey__header">
           <div className="survey__header__title">
-            <img src="img/back.svg"></img>
             <p>{props.number}/11</p>
           </div>
           <div className="survey__progressbar"></div>
         </div>
         <div className="survey__form">
           <div className="survey__form__query">{contents[index].query}</div>
-          <div className="survey__form__answer" onClick={props.onClick}>
-            {contents[index].answers[0]}
-          </div>
-          <div className="survey__form__answer" onClick={props.onClick}>
-            {contents[index].answers[1]}
+          <div className="answer__form">
+            <div className="survey__form__answer" onClick={props.onClick}>
+              {contents[index].answers[0]}
+            </div>
+            <div className="survey__form__answer" onClick={props.onClick}>
+              {contents[index].answers[1]}
+            </div>
           </div>
         </div>
       </div>
