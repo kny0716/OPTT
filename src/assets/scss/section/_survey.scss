@@ -9,9 +9,9 @@
 }
 
 .survey__div {
-  width: 760px;
-  height: 946px;
-  padding: 50px 30px;
+  width: 100%;
+  height: 100%;
+  padding: 57px 235px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -24,56 +24,60 @@
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  margin: 0 0 55px;
+  margin: 0 0 55px; //  수정
 }
 
 .survey__header__title {
   width: 100%;
-  font-size: 1.5rem;
-  font-weight: 900;
+  height: 94px;
+
   display: flex;
   flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  margin: 0 0 55px 0;
+  justify-content: end;
 
-  img {
-    width: 15.44px;
-    height: 25px;
-    object-fit: cover;
-  }
+  font-size: 1.5rem;
+  font-weight: 800;
 }
+
 .survey__progressbar {
-  width: 700px;
+  width: 100%;
   height: 15px;
   border-radius: 20px; // border 수정 전
   background-color: #5490d9;
 }
+
 .survey__form {
-  width: 62%;
+  width: 746px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
+
 .survey__form__query {
   font-size: 2rem;
-  font-weight: 800;
-  margin: 150px 0;
+  font-weight: 700;
+  margin: 150px 0; // 수정 필요
   display: flex;
   text-align: center;
-  //   justify-content: center;
-  //   align-items: center;
+}
+
+.answer__form {
+  width: 745.52px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
 .survey__form__answer {
-  width: 395px;
-  height: 116px;
+  width: 340.52px;
+  height: 100px;
 
-  font-size: 1.5rem;
-  font-weight: 600;
+  margin: 0 0 20px;
 
   border: 3px solid #383fb0;
   border-radius: 16px;
   background-color: #fff;
-
-  margin: 0 0 20px;
 
   display: flex;
   text-align: center;
@@ -81,6 +85,9 @@
   align-items: center;
 
   transition: all 0.2s;
+
+  font-size: 1.5rem;
+  font-weight: 500;
 
   &:hover {
     background-color: #5490d9;

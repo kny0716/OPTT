@@ -20,9 +20,9 @@ export default function AuthForm({ type, form, onChange, onSubmit }) {
     <div id="auth">
       <div className="auth__div">
         <div className="auth__header">
-          <div className="auth__logo">
+          <a href="/" className="auth__logo">
             <img src="/img/auth/logo.svg" alt="logo" />
-          </div>
+          </a>
           <div className="auth__nav">
             <p>{titleMap[type].title}</p>
             <Button to={titleMap[type].link}>{titleMap[type].button}</Button>
@@ -30,45 +30,49 @@ export default function AuthForm({ type, form, onChange, onSubmit }) {
         </div>
         <div className="auth__form">
           {type === "register" && (
-            <>
-              <p className="auth__form__label"> 아이디 </p>
-              <div className="auth__form__div">
-                <input placeholder="아이디를 입력해 주세요." />
-                <img src="/img/auth/eye.svg" alt="eye" />
-              </div>
-            </>
+            <p className="register__form__label"> 아이디 </p>
           )}
-          <div className="auth__form__div">
+          <div
+            className={
+              type === "login" ? "auth__form__div" : "register__form__div"
+            }
+          >
             <input placeholder="아이디를 입력해 주세요." />
             <img src="/img/auth/eye.svg" alt="eye" />
           </div>
           {type === "register" && (
-            <>
-              <p className="auth__form__label"> 비밀번호 </p>
-              <div className="auth__form__div">
-                <input placeholder="비밀번호를 입력해 주세요." />
-                <img src="/img/auth/blinded-eye.svg" alt="blinded-eye" />
-              </div>
-              <p className="password__condition">
-                영문, 숫자를 포함한 8자 이상의 비밀번호를 입력해주세요.
-              </p>
-            </>
+            <p className="register__form__label"> 비밀번호 </p>
           )}
-          <div className="auth__form__div">
+          <div
+            className={
+              type === "login" ? "auth__form__div" : "register__form__div2"
+            }
+          >
             <input placeholder="비밀번호를 입력해 주세요." />
             <img src="/img/auth/blinded-eye.svg" alt="blinded-eye" />
           </div>
           {type === "register" && (
+            <p className="password__condition">
+              영문, 숫자를 포함한 8자 이상의 비밀번호를 입력해주세요.
+            </p>
+          )}
+          {type === "register" && (
             <>
-              <p className="auth__form__label"> 비밀번호 확인 </p>
-              <div className="auth__form__div">
+              <p className="register__form__label"> 비밀번호 확인 </p>
+              <div className="register__form__div">
                 <input placeholder="비밀번호를 확인해 주세요." />
                 <img src="/img/auth/blinded-eye.svg" alt="blinc-eye" />
               </div>
             </>
           )}
         </div>
-        <div className="auth__submit__button">
+        <div
+          className={
+            type === "register"
+              ? "auth__submit__button"
+              : "register__submit__button"
+          }
+        >
           <Button>{titleMap[type].text}</Button>
         </div>
         {type === "login" && (
