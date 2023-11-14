@@ -1,0 +1,89 @@
+#survey {
+  width: 100%;
+  height: 100%;
+  background: --var(bgColor);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.survey__div {
+  width: 760px;
+  height: 946px;
+  padding: 50px 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.survey__header {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0 0 55px;
+}
+
+.survey__header__title {
+  width: 100%;
+  font-size: 1.5rem;
+  font-weight: 900;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0 0 55px 0;
+
+  img {
+    width: 15.44px;
+    height: 25px;
+    object-fit: cover;
+  }
+}
+.survey__progressbar {
+  width: 700px;
+  height: 15px;
+  border-radius: 20px; // border 수정 전
+  background-color: #5490d9;
+}
+.survey__form {
+  width: 62%;
+}
+.survey__form__query {
+  font-size: 2rem;
+  font-weight: 800;
+  margin: 150px 0;
+  display: flex;
+  text-align: center;
+  //   justify-content: center;
+  //   align-items: center;
+}
+
+.survey__form__answer {
+  width: 395px;
+  height: 116px;
+
+  font-size: 1.5rem;
+  font-weight: 600;
+
+  border: 3px solid #383fb0;
+  border-radius: 16px;
+  background-color: #fff;
+
+  margin: 0 0 20px;
+
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+
+  transition: all 0.2s;
+
+  &:hover {
+    background-color: #5490d9;
+    color: #fff;
+  }
+}

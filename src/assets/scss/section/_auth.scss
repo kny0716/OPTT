@@ -1,6 +1,6 @@
 #auth {
   width: 100vw;
-  height: 100%;
+  height: 100vh;
   background: #fafafa;
 
   display: flex;
@@ -14,6 +14,7 @@
     border: none;
     outline: none;
     margin-left: 20px;
+    font-size: 0.875rem;
 
     &:placeholder-shown {
       color: #ccc;
@@ -25,7 +26,7 @@
   width: 445px;
   height: 581px;
   background: #fff;
-  padding: 40px 37px;
+  padding: 42px 37px;
   border-radius: 10px;
   box-shadow: 0px 175px 49px 0 rgba(0, 0, 0, 0),
     0px 112px 45px 0 rgba(0, 0, 0, 0.01), 0px 63px 38px 0 rgba(0, 0, 0, 0.05),
@@ -40,7 +41,7 @@
 .auth__header {
   width: 178px;
   height: 59.04px;
-  margin: 0 0 42px; // 수정 login, register
+  margin: 20px 0; // 수정 login, register
 
   display: flex;
   flex-direction: column;
@@ -56,14 +57,27 @@
   display: flex;
   flex-direction: row;
 
-  font-size: 13px;
-  font-weight: 500;
+  font-size: 0.813rem;
+  font-weight: 700;
   color: #383fb0;
+
+  white-space: nowrap;
 
   p {
     color: #252525;
     margin-right: 10px;
   }
+}
+
+.password__condition {
+  font-size: 0.75rem;
+  color: #a8a8a8;
+  padding-left: 14px;
+}
+
+.auth__form__label {
+  font-size: 0.75rem;
+  font-weight: 700;
 }
 
 .auth__form__div {
@@ -72,6 +86,7 @@
   border: 1px solid #ccc;
   border-radius: 16px;
   margin: 14px 0;
+  padding: 0 0 0 5px;
 
   display: flex;
   flex-direction: row;
@@ -81,12 +96,16 @@
     width: 20px;
     object-fit: cover;
   }
+
+  &:focus-within {
+    border: 1px solid #383fb0;
+  }
 }
 
 .auth__submit__button {
   width: 370px;
   height: 50.3px;
-  margin: 34px 0 0 0; // 수정 login, register 다르게
+  margin: 14px 0 0 0; // 수정 login, register 다르게
   background: #383fb0;
   border-radius: 16px;
 
@@ -115,8 +134,8 @@
   justify-content: start;
 
   p {
-    margin: 0 0 44px 0;
-    font-weight: 500;
+    margin: 0 0 24px 0;
+    font-weight: 800;
     color: rgba(12, 8, 86, 0.8);
   }
 }
