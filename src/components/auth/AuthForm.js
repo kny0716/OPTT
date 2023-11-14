@@ -29,31 +29,43 @@ export default function AuthForm({ type, form, onChange, onSubmit }) {
           </div>
         </div>
         <div className="auth__form">
-          {type === "register" && <p className="auth__form__label"> 아이디 </p>}
+          {type === "register" && (
+            <>
+              <p className="auth__form__label"> 아이디 </p>
+              <div className="auth__form__div">
+                <input placeholder="아이디를 입력해 주세요." />
+                <img src="/img/auth/eye.svg" alt="eye" />
+              </div>
+            </>
+          )}
           <div className="auth__form__div">
             <input placeholder="아이디를 입력해 주세요." />
             <img src="/img/auth/eye.svg" alt="eye" />
           </div>
           {type === "register" && (
-            <p className="auth__form__label"> 비밀번호 </p>
+            <>
+              <p className="auth__form__label"> 비밀번호 </p>
+              <div className="auth__form__div">
+                <input placeholder="비밀번호를 입력해 주세요." />
+                <img src="/img/auth/blinded-eye.svg" alt="blinded-eye" />
+              </div>
+              <p className="password__condition">
+                영문, 숫자를 포함한 8자 이상의 비밀번호를 입력해주세요.
+              </p>
+            </>
           )}
           <div className="auth__form__div">
             <input placeholder="비밀번호를 입력해 주세요." />
             <img src="/img/auth/blinded-eye.svg" alt="blinded-eye" />
           </div>
           {type === "register" && (
-            <p className="password__condition">
-              영문, 숫자를 포함한 8자 이상의 비밀번호를 입력해주세요.
-            </p>
-          )}
-          {type === "register" && (
-            <p className="auth__form__label"> 비밀번호 확인 </p>
-          )}
-          {type === "register" && (
-            <div className="auth__form__div">
-              <input placeholder="비밀번호를 확인해 주세요." />
-              <img src="/img/auth/blinded-eye.svg" alt="blinc-eye" />
-            </div>
+            <>
+              <p className="auth__form__label"> 비밀번호 확인 </p>
+              <div className="auth__form__div">
+                <input placeholder="비밀번호를 확인해 주세요." />
+                <img src="/img/auth/blinded-eye.svg" alt="blinc-eye" />
+              </div>
+            </>
           )}
         </div>
         <div className="auth__submit__button">
