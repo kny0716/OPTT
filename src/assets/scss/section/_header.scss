@@ -1,17 +1,18 @@
 #header {
+  filter: drop-shadow(0 0 0.7rem rgb(0 0 0 / 10%));
   display: flex;
   justify-content: space-between;
   align-items: center;
-  filter: drop-shadow(0 0 0.7rem rgb(0 0 0 / 10%));
 }
 
 .header__logo {
   display: flex;
   img {
-    margin-left: 137px;
-    padding-bottom: 5px;
-    width: 127px;
-    height: 45px;
+    width: 6.4375rem;
+    height: 2.1875rem;
+    margin: 0 0 0 137px;
+    padding: 0 0 5px 0;
+    object-fit: contain;
   }
 }
 
@@ -21,19 +22,18 @@
     margin: 137px;
     font-family: "Nanum Gothic", sans-serif;
     li {
-      font-size: 1.15rem;
+      font-size: 0.875rem;
       font-weight: 700;
 
       #login {
         padding: 0.5rem 1rem 0.5rem 1rem;
-        margin: 0 0.625rem;
         color: #1e3456;
       }
       #register {
-        padding: 0.7rem 1rem 0.7rem 1rem;
+        padding: 0.3125rem 0.7rem 0.3125rem 0.7rem;
         margin: 0 0.625rem;
-        border: 3.5px solid #383fb0;
-        border-radius: 15px;
+        border: 2px solid #383fb0;
+        border-radius: 10px;
         transition: all 0.2s;
         color: #0c0856;
         font-weight: 800;
