@@ -3,10 +3,13 @@ import Main from "../components/section/Main";
 import SurveyForm from "../components/common/SurveyForm";
 
 const Survey = () => {
-  const [question_number, set_question_number] = useState(1);
+  const [question_number, set_question_number] = useState(0);
   const handleAnswerChange = () => {
-    if (question_number + 1 === 12) {
-      window.location.href = "/result";
+    if (question_number === 10) {
+      set_question_number(question_number + 1);
+      setTimeout(() => {
+        window.location.href = "/result";
+      }, 700);
     } else {
       set_question_number(question_number + 1);
     }
