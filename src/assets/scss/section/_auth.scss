@@ -134,8 +134,16 @@
   justify-content: center;
   align-items: center;
 
-  color: white;
+  color: #fff;
   font-weight: 800;
+
+  &:hover {
+    color: #fff;
+    background-color: #2d328d;
+  }
+  &:focus {
+    color: #fff;
+  }
 }
 
 .register__submit__button {

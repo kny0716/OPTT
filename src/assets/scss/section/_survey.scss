@@ -20,30 +20,45 @@
 
 .survey__header {
   width: 100%;
+  height: 80px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  margin: 0 0 55px; //  수정
 }
 
 .survey__header__title {
   width: 100%;
-  height: 94px;
 
   display: flex;
   flex-direction: row;
   justify-content: end;
 
-  font-size: 1.5rem;
+  font-size: 1rem;
   font-weight: 800;
 }
 
-.survey__progressbar {
+.survey__progressbar__container {
   width: 100%;
   height: 15px;
-  border-radius: 20px; // border 수정 전
+  border-radius: 20px;
   background-color: #5490d9;
+  position: relative;
+}
+.survey__progressbar {
+  height: 100%;
+  border-radius: 20px;
+  background-color: #383fb0;
+  transition: width 0.5s ease-in-out;
+}
+.survey__progressbar__img {
+  position: absolute;
+  top: 0;
+  left: 100%;
+  width: 60px;
+  height: 65px;
+  transform: translate(-50%, -50%);
+  transition: left 0.5s ease-in-out;
 }
 
 .survey__form {
@@ -55,11 +70,12 @@
 }
 
 .survey__form__query {
-  font-size: 2rem;
+  font-size: 1.5rem;
   font-weight: 700;
-  margin: 150px 0; // 수정 필요
+  margin: 150px 0;
   display: flex;
   text-align: center;
+  white-space: pre-line;
 }
 
 .answer__form {
@@ -86,11 +102,12 @@
 
   transition: all 0.2s;
 
-  font-size: 1.5rem;
-  font-weight: 500;
+  font-size: 1.25rem;
+  font-weight: 600;
 
   &:hover {
     background-color: #5490d9;
     color: #fff;
+    cursor: pointer;
   }
 }

@@ -5,7 +5,13 @@ export default function Modal({ close }) {
       <div className="overlay" onClick={close}></div>
       <div className="modal__form">
         <div className="profile">
-          <img src="/img/profile.svg"></img>
+          {/* <img src="/img/profile.svg"></img> */}
+          <div
+            className="profile__img"
+            style={{
+              backgroundImage: `url("/img/profile.svg")`,
+            }}
+          ></div>
           <p>account</p>
         </div>
         <div className="contents">
