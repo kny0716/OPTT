@@ -1,3 +1,5 @@
+@use "../setting/mixin";
+
 #auth {
   width: 100vw;
   height: 100vh;
@@ -19,6 +21,18 @@
 
   input::placeholder {
     color: #c6c6c6;
+  }
+
+  @include mobile {
+    input {
+      width: 289px;
+      height: 15px;
+      margin: 0 10px 0 20px;
+      border: none;
+      outline: none;
+      font-size: 0.875rem;
+      font-weight: 700;
+    }
   }
 }
 
