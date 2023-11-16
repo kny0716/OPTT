@@ -10,6 +10,7 @@ const Result = () => {
   const close = () => {
     setIsOpen(false);
   };
+
   return (
     <Main>
       <button onClick={open}>모달 열기</button>

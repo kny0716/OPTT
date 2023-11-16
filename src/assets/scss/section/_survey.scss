@@ -9,9 +9,9 @@
 }
 
 .survey__div {
-  width: 760px;
-  height: 946px;
-  padding: 50px 30px;
+  width: 100%;
+  height: 100%;
+  padding: 57px 235px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -20,60 +20,80 @@
 
 .survey__header {
   width: 100%;
+  height: 80px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  margin: 0 0 55px;
 }
 
 .survey__header__title {
   width: 100%;
-  font-size: 1.5rem;
-  font-weight: 900;
+
   display: flex;
   flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  margin: 0 0 55px 0;
+  justify-content: end;
 
-  img {
-    width: 15.44px;
-    height: 25px;
-    object-fit: cover;
-  }
+  font-size: 1rem;
+  font-weight: 800;
+}
+
+.survey__progressbar__container {
+  width: 100%;
+  height: 15px;
+  border-radius: 20px;
+  background-color: #5490d9;
+  position: relative;
 }
 .survey__progressbar {
-  width: 700px;
-  height: 15px;
-  border-radius: 20px; // border 수정 전
-  background-color: #5490d9;
+  height: 100%;
+  border-radius: 20px;
+  background-color: #383fb0;
+  transition: width 0.5s ease-in-out;
 }
+.survey__progressbar__img {
+  position: absolute;
+  top: 0;
+  left: 100%;
+  width: 60px;
+  height: 65px;
+  transform: translate(-50%, -50%);
+  transition: left 0.5s ease-in-out;
+}
+
 .survey__form {
-  width: 62%;
+  width: 746px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
+
 .survey__form__query {
-  font-size: 2rem;
-  font-weight: 800;
+  font-size: 1.5rem;
+  font-weight: 700;
   margin: 150px 0;
   display: flex;
   text-align: center;
-  //   justify-content: center;
-  //   align-items: center;
+  white-space: pre-line;
+}
+
+.answer__form {
+  width: 745.52px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
 .survey__form__answer {
-  width: 395px;
-  height: 116px;
+  width: 340.52px;
+  height: 100px;
 
-  font-size: 1.5rem;
-  font-weight: 600;
+  margin: 0 0 20px;
 
   border: 3px solid #383fb0;
   border-radius: 16px;
   background-color: #fff;
-
-  margin: 0 0 20px;
 
   display: flex;
   text-align: center;
@@ -82,8 +102,12 @@
 
   transition: all 0.2s;
 
+  font-size: 1.25rem;
+  font-weight: 600;
+
   &:hover {
     background-color: #5490d9;
     color: #fff;
+    cursor: pointer;
   }
 }

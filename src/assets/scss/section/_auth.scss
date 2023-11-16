@@ -9,24 +9,28 @@
 
   input {
     width: 289px;
-    height: 40px;
-    margin: 0 10px;
+    height: 15px;
+    margin: 0 10px 0 20px;
     border: none;
     outline: none;
-    margin-left: 20px;
     font-size: 0.875rem;
-
-    &:placeholder-shown {
-      color: #ccc;
-    }
+    font-weight: 700;
   }
+
+  input::placeholder {
+    color: #c6c6c6;
+  }
+}
+
+.auth__form {
+  margin: 34px 0 0 0;
 }
 
 .auth__div {
   width: 445px;
   height: 581px;
   background: #fff;
-  padding: 42px 37px;
+  padding: 40px 37px;
   border-radius: 10px;
   box-shadow: 0px 175px 49px 0 rgba(0, 0, 0, 0),
     0px 112px 45px 0 rgba(0, 0, 0, 0.01), 0px 63px 38px 0 rgba(0, 0, 0, 0.05),
@@ -39,9 +43,8 @@
 }
 
 .auth__header {
-  width: 178px;
-  height: 59.04px;
-  margin: 20px 0; // 수정 login, register
+  width: 183px;
+  height: 61px;
 
   display: flex;
   flex-direction: column;
@@ -56,8 +59,9 @@
 .auth__nav {
   display: flex;
   flex-direction: row;
+  gap: 5px;
 
-  font-size: 0.813rem;
+  font-size: 0.8125rem;
   font-weight: 700;
   color: #383fb0;
 
@@ -65,28 +69,17 @@
 
   p {
     color: #252525;
-    margin-right: 10px;
   }
-}
-
-.password__condition {
-  font-size: 0.75rem;
-  color: #a8a8a8;
-  padding-left: 14px;
-}
-
-.auth__form__label {
-  font-size: 0.75rem;
-  font-weight: 700;
 }
 
 .auth__form__div {
   width: 370px;
-  height: 50.3px;
-  border: 1px solid #ccc;
+  height: 53.3px;
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 2px,
+    rgba(0, 0, 0, 0.15) 0px 0px 0px 1px inset;
   border-radius: 16px;
-  margin: 14px 0;
-  padding: 0 0 0 5px;
+  margin: 0 0 14px 0;
+  padding: 0 0 0 8px;
 
   display: flex;
   flex-direction: row;
@@ -94,18 +87,46 @@
 
   img {
     width: 20px;
+    height: 13.97px;
     object-fit: cover;
+    visibility: hidden;
   }
 
   &:focus-within {
-    border: 1px solid #383fb0;
+    box-shadow: rgba(56, 63, 176, 0.4) 0px 0px 0px 3px,
+      rgba(56, 63, 176, 1) 0px 0px 0px 1px inset;
+    img {
+      visibility: visible;
+    }
   }
+}
+
+.register__form__div {
+  @extend .auth__form__div;
+  margin: 5px 0 18px 0;
+}
+
+.register__form__div2 {
+  @extend .auth__form__div;
+  margin: 5px 0 0 0;
+}
+
+.register__form__label {
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.password__condition {
+  margin: 5px 0 18px 15px;
+  font-size: 0.75rem;
+  color: #a8a8a8;
+  font-weight: 700;
 }
 
 .auth__submit__button {
   width: 370px;
-  height: 50.3px;
-  margin: 14px 0 0 0; // 수정 login, register 다르게
+  height: 53.3px;
+  margin: 14px 0 0 0;
   background: #383fb0;
   border-radius: 16px;
 
@@ -113,7 +134,21 @@
   justify-content: center;
   align-items: center;
 
-  color: white;
+  color: #fff;
+  font-weight: 800;
+
+  &:hover {
+    color: #fff;
+    background-color: #2d328d;
+  }
+  &:focus {
+    color: #fff;
+  }
+}
+
+.register__submit__button {
+  @extend .auth__submit__button;
+  margin: 20px 0 0 0;
 }
 
 .login__line {
@@ -134,8 +169,9 @@
   justify-content: start;
 
   p {
-    margin: 0 0 24px 0;
-    font-weight: 800;
+    margin: 0 0 22px 0;
+    font-weight: 700;
+    font-size: 0.875rem;
     color: rgba(12, 8, 86, 0.8);
   }
 }

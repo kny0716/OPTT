@@ -2,37 +2,39 @@
   text-align: center;
 
   h1 {
+    padding: 81px 0 0 0;
     font-size: 4rem;
-    font-weight: 800;
+    font-weight: 600;
     color: var(--textColor);
-    padding-top: 80px;
   }
 
   p {
-    font-size: 1.7rem;
+    font-size: 1.5rem;
     color: #b8b8b8;
     margin-top: 10px;
   }
 
   div {
-    background-color: rgba(33, 37, 127, 0.9);
     width: 100vw;
-    height: 45vh;
-    margin-top: 35vh;
+    height: 42vh;
+    margin: 30vh 0 0 0;
+    background-color: rgba(33, 37, 127, 0.9);
+
+    position: relative;
 
     li {
       list-style-type: none;
       img {
         margin-top: 6%;
-        width: 380px;
-        height: 120px;
-        object-fit: cover;
+        width: 23.125rem;
+        height: 6.875rem;
+        object-fit: contain;
         filter: drop-shadow(0 0 0.7rem rgb(0 0 0 / 50%));
       }
       h3 {
         display: block;
         margin-top: 1%;
-        font-size: 1.6rem;
+        font-size: 1.5rem;
         font-weight: 600;
         color: var(--white);
       }
@@ -40,18 +42,15 @@
   }
 
   #home__character {
-    // 모니터 기준
-    // top: 37%;
-    // left: 41.5%;
-    // position: absolute;
-    // width: 16%;
-    // height: 31.8%;
-    // 노트북 기준
     position: absolute;
-    top: 38%;
-    left: 50%;
-    width: 26%;
-    height: 41.8%;
-    transform: translateX(-50%);
+    top: 0;
+    left: 0;
+    // width: 80%;
+    height: 120%;
+    // top: 38%;
+    // left: 50%;
+    // width: 26%;
+    // height: 41.8%;
+    transform: translate(0%, -80%);
   }
 }
