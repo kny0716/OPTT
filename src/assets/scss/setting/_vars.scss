@@ -1,7 +1,4 @@
 :root {
-  --mainfont-nanum: "nanumSquareNeo";
-  --mainfont-nexon: "nexonLv1";
-
   --black: #000;
   --white: #fff;
   --bgColor: #edfcff;
@@ -19,6 +16,13 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
+
+  //모바일
+  $breakpoint-mobile: 335px;
+  //태블릿
+  $breakpoint-tablet: 758px;
+  //데스크탑
+  $breakpoint-desktop: 1024px;
 
   //모바일 폰트 사이즈
   @media (max-width: 800px) {
