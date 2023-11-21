@@ -1,6 +1,7 @@
 import Button from "../common/Button";
-import { atom, useRecoilState } from "recoil";
+import { useRecoilState } from "recoil";
 import { useState } from "react";
+import { loginState, registerState } from "../../atoms";
 
 const titleMap = {
   login: {
@@ -17,18 +18,14 @@ const titleMap = {
   },
 };
 
-const userListState = atom({
-  key: "userListState",
-  default: [],
-});
-
 export default function AuthForm({ type, form, onChange, onSubmit }) {
+  const [login, setLogin] = useRecoilState(loginState);
+  const [register, setRegister] = useRecoilState(registerState);
+
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [passwordCheck, setPasswordCheck] = useState("");
   const [isButtonEnabled, setIsButtonEnabled] = useState(false);
-
-  const [userList, setUserList] = useRecoilState(userListState);
 
   const usernameChange = (e) => {
     setUsername(e.target.value);
@@ -47,21 +44,11 @@ export default function AuthForm({ type, form, onChange, onSubmit }) {
         !/[^\dA-Za-z]/.test(password) &&
         password === passwordCheck
     );
+    console.log(isButtonEnabled);
   };
 
   const validateUser = (username, password) => {
-    const user = userList.find((user) => user.username === username);
-    if (user) {
-      if (user.password === password) {
-        return true;
-      } else {
-        alert("비밀번호가 일치하지 않습니다.");
-        return false;
-      }
-    } else {
-      alert("존재하지 않는 아이디입니다.");
-      return false;
-    }
+    console.log(login);
   };
 
   const handleSubmit = (e) => {
@@ -69,11 +56,16 @@ export default function AuthForm({ type, form, onChange, onSubmit }) {
       if (isButtonEnabled) {
         console.log(username, password, passwordCheck);
         console.log("회원가입 성공");
-        setUserList([...userList, { username, password }]);
+        setRegister({
+          username: username,
+          password: password,
+          passwordConfirm: passwordCheck,
+        });
+        console.log(register);
         setUsername("");
         setPassword("");
         setPasswordCheck("");
-        isButtonEnabled(false);
+        setIsButtonEnabled(false);
       } else console.log("회원가입 실패");
     } else {
       if (validateUser(username, password)) {
@@ -121,7 +113,7 @@ export default function AuthForm({ type, form, onChange, onSubmit }) {
           >
             <input
               placeholder="비밀번호를 입력해 주세요."
-              type="text"
+              type="password"
               value={password}
               onChange={passwordChange}
             />
@@ -138,7 +130,7 @@ export default function AuthForm({ type, form, onChange, onSubmit }) {
               <div className="register__form__div">
                 <input
                   placeholder="비밀번호를 확인해 주세요."
-                  type="text"
+                  type="password"
                   value={passwordCheck}
                   onChange={passwordCheckChange}
                 />
@@ -154,7 +146,6 @@ export default function AuthForm({ type, form, onChange, onSubmit }) {
               : "register__submit__button"
           }
           onClick={handleSubmit}
-          to="/login"
         >
           {titleMap[type].text}
         </Button>

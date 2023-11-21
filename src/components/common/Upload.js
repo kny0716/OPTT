@@ -47,9 +47,10 @@ const FileBlock = styled(Link)`
 */
 
 // 파일 업로드
-export default function Upload({ profile, onUpload }) {
+export default function Upload(props) {
   const inputRef = useRef(null);
-  const { account, userImage } = profile;
+  const userImage = props.img;
+  const username = props.username;
 
   const onUploadImageButtonClick = useCallback(() => {
     if (!inputRef.current) {
@@ -60,12 +61,17 @@ export default function Upload({ profile, onUpload }) {
 
   return (
     <>
-      <img src={userImage} alt="" />
-      <input type="file" accept="image/*" ref={inputRef} onChange={onUpload} />
+      <img className="profile__img" src={userImage} alt="profile_img" />
+      <input
+        type="file"
+        accept="image/*"
+        ref={inputRef}
+        onChange={props.onUpload}
+      />
       <div onClick={onUploadImageButtonClick}>
-        <img src="/images/User/Edit.svg" alt="edit" />
+        <img src="/img/profile_edit.svg" alt="edit" />
       </div>
-      <span>{account}</span>
+      <span>{username}</span>
     </>
   );
 }

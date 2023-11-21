@@ -1,6 +1,6 @@
 @import "./vars";
 
-@mixin moblie {
+@mixin mobile {
   @media (min-width: 335px) and (max-width: 757px) {
     @content;
   }

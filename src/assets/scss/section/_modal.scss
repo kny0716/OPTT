@@ -60,6 +60,11 @@
     object-fit: contain;
     background-size: cover;
     border-radius: 100%;
+    z-index: 1;
+  }
+
+  input {
+    display: none;
   }
   padding: 0 0 41px;
 
