@@ -59,6 +59,7 @@ app.post("/register", (req, res) => {
   const { username, password } = req.body;
   connection.query(
     "SELECT * FROM user WHERE username = ? AND password = ?",
+    [username, password],
     function (error, results, fields) {
       if (error) throw error;
       connection.query(
@@ -76,6 +77,22 @@ app.post("/register", (req, res) => {
 });
 
 // 사용자 정보
+app.get("/user", (req, res) => {
+  const { username, password } = req.body;
+  connection.query(
+    "SELECT nickname, profile, result FROM user WHERE username = ? AND password = ? LIMIT 1",
+    [username, password],
+    function (error, results, fields) {
+      if (error) throw error;
+
+      res.data.nickname = results.nickname;
+      res.data.profile = results.profile;
+      res.data.result = results.result;
+      console.log("사용자 정보", results);
+      res.end();
+    }
+  );
+});
 
 //
 
