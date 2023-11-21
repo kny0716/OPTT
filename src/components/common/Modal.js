@@ -1,4 +1,5 @@
 import Button from "./Button";
+import Upload from "./Upload";
 export default function Modal({ close }) {
   return (
     <div className="wrapper">
@@ -6,13 +7,14 @@ export default function Modal({ close }) {
       <div className="modal__form">
         <div className="profile">
           {/* <img src="/img/profile.svg"></img> */}
-          <div
+          {/* <div
             className="profile__img"
             style={{
               backgroundImage: `url("/img/profile.svg")`,
             }}
-          ></div>
-          <p>account</p>
+          ></div> */}
+          {/* <p>account</p> */}
+          <Upload img="/img/profile.svg" username="account" />
         </div>
         <div className="contents">
           <Button to="/result" className="contents__btn">
