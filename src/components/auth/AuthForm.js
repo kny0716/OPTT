@@ -48,26 +48,35 @@ export default function AuthForm({ type, form, onChange, onSubmit }) {
     );
     console.log(isButtonEnabled);
   };
-
-  async function validateUser(username, password) {
+  async function getUser(username, password) {
     try {
       const response = await instance.post("/login", {
         username: username,
         password: password,
       });
-      const getData = () => {
-        response.then((res) => {
-          if (res.data.token) {
-            return true;
-          } else {
-            return false;
-          }
-        });
-      };
-      getData();
+      return response;
     } catch (error) {
       console.error(error);
-      return false;
+    }
+  }
+  const validateUser = (username, password) => {
+    const userdata = getUser(username, password);
+    const getData = () => {
+      userdata.then((res) => {
+        setLogin({ ...login, token: res.data.token });
+      });
+    };
+    getData();
+  };
+
+  async function registerUser(register) {
+    try {
+      await instance.post("/register", {
+        username: register.username,
+        password: register.password,
+      });
+    } catch (error) {
+      console.error(error);
     }
   }
 
@@ -82,17 +91,7 @@ export default function AuthForm({ type, form, onChange, onSubmit }) {
           passwordConfirm: passwordCheck,
         });
         console.log(register);
-        instance
-          .post("/register", {
-            username: register.username,
-            password: register.password,
-          })
-          .then(function (response) {
-            console.log(response);
-          })
-          .catch(function (error) {
-            console.log(error);
-          });
+        registerUser(register);
 
         setUsername("");
         setPassword("");
@@ -100,7 +99,8 @@ export default function AuthForm({ type, form, onChange, onSubmit }) {
         setIsButtonEnabled(false);
       } else console.log("회원가입 실패");
     } else {
-      if (validateUser(username, password)) {
+      validateUser(username, password);
+      if (login.token !== 0) {
         console.log("로그인 성공");
       } else console.log("로그인 실패");
     }
