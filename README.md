@@ -18,6 +18,12 @@ OPTT API 명세서
    URL : '/register'
    보내는 객체 : {username, password}
 
+1. 로그아웃
+   방식 : POST
+   URL : '/logout'
+   보내는 객체 : {username, password}
+   응답 : data (token - Boolean)
+
 1. 사용자 정보
    방식 : GET
    URL : '/user'
