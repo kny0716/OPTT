@@ -68,9 +68,14 @@ export default function Upload(props) {
         ref={inputRef}
         onChange={props.onUpload}
       />
-      <div onClick={onUploadImageButtonClick}>
-        <img src="/img/profile_edit.svg" alt="edit" />
-      </div>
+      {/* <div onClick={onUploadImageButtonClick}> */}
+      <img
+        className="profile__edit"
+        src="/img/profile_edit.svg"
+        alt="edit"
+        onClick={onUploadImageButtonClick}
+      />
+      {/* </div> */}
       <span>{username}</span>
     </>
   );

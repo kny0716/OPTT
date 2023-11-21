@@ -2,7 +2,8 @@ import Button from "../common/Button";
 import { useRecoilState } from "recoil";
 import { useState } from "react";
 import { loginState, registerState } from "../../atoms";
-import axios from "axios";
+// import axios from "axios";
+import instance from "../../lib/axios";
 
 const titleMap = {
   login: {
@@ -48,20 +49,27 @@ export default function AuthForm({ type, form, onChange, onSubmit }) {
     console.log(isButtonEnabled);
   };
 
-  const validateUser = (username, password) => {
-    axios
-      .post("/login", {
-        login,
-      })
-      .then(function (response) {
-        console.log(response);
-      })
-      .catch(function (error) {
-        console.log(error);
+  async function validateUser(username, password) {
+    try {
+      const response = await instance.post("/login", {
+        username: username,
+        password: password,
       });
-
-    console.log(login);
-  };
+      const getData = () => {
+        response.then((res) => {
+          if (res.data.token) {
+            return true;
+          } else {
+            return false;
+          }
+        });
+      };
+      getData();
+    } catch (error) {
+      console.error(error);
+      return false;
+    }
+  }
 
   const handleSubmit = (e) => {
     if (type === "register") {
@@ -74,12 +82,11 @@ export default function AuthForm({ type, form, onChange, onSubmit }) {
           passwordConfirm: passwordCheck,
         });
         console.log(register);
-        axios
-          .post("register", {
+        instance
+          .post("/register", {
             username: register.username,
             password: register.password,
           })
-
           .then(function (response) {
             console.log(response);
           })

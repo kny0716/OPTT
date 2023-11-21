@@ -54,6 +54,20 @@
 }
 
 .profile {
+  .profile__edit {
+    width: 20px;
+    height: 20px;
+    border-radius: 100%;
+    object-fit: cover;
+
+    position: relative;
+    z-index: 2;
+    transform: translate(118%, -78%);
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
   .profile__img {
     width: 75px;
     height: 75px;
