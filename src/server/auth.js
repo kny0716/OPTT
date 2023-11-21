@@ -1,6 +1,6 @@
 var express = require("express");
-var session = require("express-session");
 var mysql = require("mysql");
+var cors = require("cors");
 
 var connection = mysql.createConnection({
   host: "localhost",
@@ -11,13 +11,6 @@ var connection = mysql.createConnection({
 
 const port = 8080;
 const app = express();
-app.use(
-  session({
-    secret: "secret",
-    resave: true,
-    saveUninitialized: true,
-  })
-);
 
 // MySQL 연결
 connection.connect((err) => {
@@ -29,6 +22,7 @@ connection.connect((err) => {
 });
 
 // 모든 요청 처리
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -41,14 +35,12 @@ app.post("/login", (req, res) => {
     function (error, results, fields) {
       if (error) throw error;
       if (results.length > 0) {
-        req.data.token = 1;
-        console.log("로그인 성공!");
+        res.send({ msg: "로그인 성공", token: 1 });
         res.end();
       } else {
-        console.log("로그인 실패!");
-        //response.send('Incorrect Username and/or Password!');
-        res.data.token = 0;
+        res.send({ msg: "로그인 실패", token: 0 });
         res.end();
+        // ; UPDATE user SET token = 1 WHERE username = ?
       }
     }
   );
@@ -65,12 +57,15 @@ app.post("/register", (req, res) => {
       connection.query(
         "INSERT INTO user (username, password) VALUES(?,?)",
         [username, password],
+
         function (error, data) {
-          if (error) console.log(error);
-          else console.log(data);
+          if (error) {
+            res.send({ msg: "회원가입 실패!" });
+          } else {
+            res.send({ msg: "회원가입 성공!" });
+          }
         }
       );
-      console.log("회원가입 성공!");
       res.end();
     }
   );
@@ -97,6 +92,11 @@ app.get("/user", (req, res) => {
 //
 
 // 서버 실행
-app.listen(port, () => {
-  console.log("Server is running on port 8080");
+app.listen(port, (err) => {
+  if (err) {
+    console.error("서버 시작 실패:", err);
+  } else {
+    console.log(`서버가 포트 ${port}에서 실행 중입니다.`);
+  }
+  console.log("Server is running on port" + port);
 });
