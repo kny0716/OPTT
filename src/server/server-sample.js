@@ -28,7 +28,7 @@ app.use(bodyParser.json());
 
 function restrict(req, res, next) {
   if (req.session.loggedin) {
-    next();
+    next(); // 이 친구가 의미하는 것은?
   } else {
     req.session.error = "Access denied!";
     res.sendFile(path.join(__dirname + "/my/login.html"));
