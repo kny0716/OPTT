@@ -1,8 +1,6 @@
-import React from "react";
-import AuthForm from "../components/auth/AuthForm";
-
-const Register = () => {
-  return <AuthForm type="register" />;
+import Register from "../containers/auth/Register";
+const RegisterPage = () => {
+  return <Register />;
 };
 
-export default Register;
+export default RegisterPage;
