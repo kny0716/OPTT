@@ -1,6 +1,6 @@
 import AuthForm from "../../components/auth/AuthForm";
 import { useRecoilState } from "recoil";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { loginState } from "../../atoms";
 import { useNavigate } from "react-router-dom";
 import instance from "../../lib/axios";
@@ -42,11 +42,14 @@ export default function Login() {
 
   const handleSubmit = (e) => {
     validateUser(username, password);
+  };
+
+  useEffect(() => {
     if (login.token !== 0) {
       console.log("로그인 성공");
       navigate("/");
     } else console.log("로그인 실패");
-  };
+  }, [login.token]);
 
   return (
     <AuthForm
