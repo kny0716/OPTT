@@ -3,7 +3,7 @@ var mysql = require("mysql");
 var connection = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "ckdmsdn330!!",
+  password: "nabong0716!",
   database: "optt",
 });
 
@@ -94,16 +94,17 @@ exports.logout = (req, res) => {
 exports.user = (req, res) => {
   const { username, password } = req.body;
   connection.query(
-    "SELECT nickname, profile, result FROM user WHERE username = ? AND password = ? LIMIT 1",
+    "SELECT nickname, profile, result FROM user WHERE username = ? AND password = ?",
     [username, password],
     function (error, results, fields) {
       if (error) throw error;
+      console.log(results);
       if (results.length > 0) {
         res.send({
           msg: "사용자 정보",
-          nickname: res.data.nickname,
-          profile: res.data.profile,
-          result: res.data.result,
+          nickname: results.nickname,
+          profile: results.profile,
+          result: results.result,
         });
         res.end();
       } else {

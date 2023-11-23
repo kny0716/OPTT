@@ -9,7 +9,7 @@ const Menu = () => {
   const [profile_img, setprofile_img] = useState("");
   useEffect(() => {
     setProfile(username, password);
-  }, [username, password, token]);
+  }, [token]);
 
   async function getUser(username, password) {
     try {
@@ -17,6 +17,8 @@ const Menu = () => {
         username: username,
         password: password,
       });
+      console.log(username);
+      console.log(response);
       return response;
     } catch (error) {
       console.error(error);
@@ -27,7 +29,7 @@ const Menu = () => {
     const userdata = getUser(username, password);
     const getData = () => {
       userdata.then((res) => {
-        setprofile_img(res.profile);
+        setprofile_img(res.data.profile);
       });
     };
     getData();
