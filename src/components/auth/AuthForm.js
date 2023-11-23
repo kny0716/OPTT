@@ -46,7 +46,6 @@ export default function AuthForm({ type, form, onChange, onSubmit }) {
         !/[^\dA-Za-z]/.test(password) &&
         password === passwordCheck
     );
-    console.log(isButtonEnabled);
   };
   async function getUser(username, password) {
     try {
@@ -86,6 +85,7 @@ export default function AuthForm({ type, form, onChange, onSubmit }) {
         console.log(username, password, passwordCheck);
         console.log("회원가입 성공");
         setRegister({
+          ...register,
           username: username,
           password: password,
           passwordConfirm: passwordCheck,
