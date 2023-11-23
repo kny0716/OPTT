@@ -2,7 +2,7 @@ import Button from "../common/Button";
 import { useRecoilState } from "recoil";
 import { useState, useEffect } from "react";
 import { loginState, registerState } from "../../atoms";
-// import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import instance from "../../lib/axios";
 
 const titleMap = {
@@ -20,106 +20,9 @@ const titleMap = {
   },
 };
 
-export default function AuthForm({ type, form, onChange, onSubmit }) {
-  const [login, setLogin] = useRecoilState(loginState);
-  const [register, setRegister] = useRecoilState(registerState);
-
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [passwordCheck, setPasswordCheck] = useState("");
-  const [isButtonEnabled, setIsButtonEnabled] = useState(false);
-
-  const usernameChange = (e) => {
-    setUsername(e.target.value);
-  };
-  const passwordChange = (e) => {
-    setPassword(e.target.value);
-  };
-  const passwordCheckChange = (e) => {
-    setPasswordCheck(e.target.value);
-    validatePassword(password, e.target.value);
-  };
-
-  const validatePassword = (password, passwordCheck) => {
-    setIsButtonEnabled(
-      password.length >= 8 &&
-        !/[^\dA-Za-z]/.test(password) &&
-        password === passwordCheck
-    );
-  };
-  async function getUser(username, password) {
-    try {
-      const response = await instance.post("/login", {
-        username: username,
-        password: password,
-      });
-      return response;
-    } catch (error) {
-      console.error(error);
-    }
-  }
-  const validateUser = (username, password) => {
-    const userdata = getUser(username, password);
-    const getData = () => {
-      userdata.then((res) => {
-        setLogin({ ...login, token: res.data.token });
-      });
-    };
-    getData();
-  };
-
-  const validateId = (username, password) => {
-    const userdata = registerUser(username, password);
-    const getData = () => {
-      userdata.then((res) => {
-        if (res.data.msg === "이미 아이디가 존재합니다.") {
-          alert("이미 아이디가 존재합니다.");
-        }
-      });
-    };
-    getData();
-  };
-  async function registerUser(username, password) {
-    try {
-      const response = await instance.post("/register", {
-        username: username,
-        password: password,
-      });
-      return response;
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
-  const handleSubmit = (e) => {
-    if (type === "register") {
-      if (isButtonEnabled) {
-        console.log(username, password, passwordCheck);
-        console.log("회원가입 성공");
-        setRegister({
-          username: username,
-          password: password,
-          passwordConfirm: passwordCheck,
-        });
-
-        validateId(username, password);
-        console.log(register);
-
-        setUsername("");
-        setPassword("");
-        setPasswordCheck("");
-        setIsButtonEnabled(false);
-        window.location.href = "/login";
-      } else console.log("회원가입 실패");
-    } else {
-      validateUser(username, password);
-      if (login.token !== 0) {
-        console.log("로그인 성공");
-        window.location.href = "/";
-      } else console.log("로그인 실패");
-    }
-  };
-
+export default function AuthForm({ type, value, onChange, onSubmit }) {
+  const { username, password, passwordCheck } = value;
+  const { usernameChange, passwordChange, passwordCheckChange } = onChange;
   return (
     <div id="auth">
       <div className="auth__div">
@@ -191,7 +94,7 @@ export default function AuthForm({ type, form, onChange, onSubmit }) {
               ? "auth__submit__button"
               : "register__submit__button"
           }
-          onClick={handleSubmit}
+          onClick={onSubmit}
         >
           {titleMap[type].text}
         </Button>
