@@ -12,6 +12,8 @@ export default function Login() {
   const [password, setPassword] = useState("");
 
   const navigate = useNavigate();
+
+  // 이거 set함수에 [e.target.name]으로 묶을 수 있어
   const usernameChange = (e) => {
     setUsername(e.target.value);
   };
@@ -30,13 +32,19 @@ export default function Login() {
       console.error(error);
     }
   }
+
   const validateUser = (username, password) => {
     const userdata = getUser(username, password);
     const getData = () => {
       userdata.then((res) => {
-        setLogin({ ...login, token: res.data.token });
+        setLogin({
+          username: username,
+          password: password,
+          token: res.data.token,
+        });
       });
     };
+    console.log("validateUser", userdata);
     getData();
   };
 
