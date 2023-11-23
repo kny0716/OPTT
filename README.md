@@ -52,7 +52,7 @@ OPTT API 명세서
 1. 댓글 수정
    방식 : POST
    URL : '/comment/update'
-   보내는 객체 : {username, password, comment}
+   보내는 객체 : {username, comment_id, comment}
    <!-- 응답 : data (token - Boolean) -->
 
 1. 댓글 삭제
