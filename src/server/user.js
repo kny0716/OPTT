@@ -31,7 +31,13 @@ exports.login = (req, res) => {
         ]);
         res.end();
       } else {
-        res.send({ msg: "로그인 실패", token: 0 });
+        res.send({
+          msg: "로그인 실패",
+          token: 0,
+          nickname: results.nickname,
+          profile: results.profile,
+          result: results.result,
+        });
         res.end();
       }
     }
@@ -84,30 +90,6 @@ exports.logout = (req, res) => {
         res.end();
       } else {
         res.send({ msg: "로그아웃 실패", token: 1 });
-        res.end();
-      }
-    }
-  );
-};
-
-// 사용자 정보
-exports.user = (req, res) => {
-  const { username, password } = req.body;
-  connection.query(
-    "SELECT nickname, profile, result FROM user WHERE username = ? AND password = ? LIMIT 1",
-    [username, password],
-    function (error, results, fields) {
-      if (error) throw error;
-      if (results.length > 0) {
-        res.send({
-          msg: "사용자 정보",
-          nickname: res.data.nickname,
-          profile: res.data.profile,
-          result: res.data.result,
-        });
-        res.end();
-      } else {
-        res.send({ msg: "사용자 정보 없음" });
         res.end();
       }
     }

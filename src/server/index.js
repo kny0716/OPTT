@@ -35,8 +35,12 @@ app.delete("/comment/delete", user.delete);
 app.post("/like", user.like);
 app.post("/unlike", user.unlike);
 
-// profile
-app.post("/profile", upload.single("profile"), (req, res, next) => {});
+// profile upload
+app.post("/profile", upload.single("profile"), (req, res, next) => {
+  const { username } = req.body;
+  const file = req.file;
+  console.log(file);
+});
 
 // 서버 실행
 app.listen(port, (err) => {
