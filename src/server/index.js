@@ -22,8 +22,8 @@ app.post("/logout", user.logout);
 app.get("/user", user.user);
 app.post("/user/result", user.result);
 
-// profile
-app.post("/profile", upload.single("profile"), (req, res, next) => {});
+// stats
+app.get("/stats", user.total);
 
 // comments
 app.get("/comments", user.list);
@@ -34,6 +34,9 @@ app.delete("/comment/delete", user.delete);
 // likes
 app.post("/like", user.like);
 app.post("/unlike", user.unlike);
+
+// profile
+app.post("/profile", upload.single("profile"), (req, res, next) => {});
 
 // 서버 실행
 app.listen(port, (err) => {

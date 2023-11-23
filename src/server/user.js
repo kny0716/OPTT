@@ -117,16 +117,46 @@ exports.user = (req, res) => {
 // 설문조사 결과
 exports.result = (req, res) => {
   const { username, result } = req.body;
+  if (username) {
+    connection.query(
+      "SELECT result FROM user WHERE username=?",
+      [username],
+      function (error, results, fields) {
+        if (results.length <= 0) {
+          connection.query("UPDATE stats SET total_users+=1");
+        }
+        connection.query(
+          "UPDATE user SET result=? WHERE username=?",
+          [result, username],
+          function (error, results, fields) {
+            if (error) {
+              res.send({ msg: "결과 저장 실패" });
+              res.end();
+            } else {
+              res.send({ msg: "결과 저장 성공" });
+              res.end();
+            }
+          }
+        );
+      }
+    );
+  } else {
+    connection.query("UPDATE stats SET total_users+=1");
+    res.send({ msg: "비로그인 사용자 +1" });
+    res.end();
+  }
+};
+
+// 총 사용자 수 불러오기
+exports.total = (req, res) => {
   connection.query(
-    "UPDATE user SET result=? WHERE username=?",
-    [result, username],
+    "SELECT total_users FROM stats",
     function (error, results, fields) {
       if (error) {
-        res.send({ msg: "결과 저장 실패" });
+        res.send({ msg: "사용자 수를 불러오는데 실패" });
         res.end();
       } else {
-        res.send({ msg: "결과 저장 성공" });
-        res.end();
+        res.send({ msg: `사용자 수 ${results}`, num: results });
       }
     }
   );
