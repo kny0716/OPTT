@@ -5,22 +5,33 @@ import { loginState } from "../../atoms";
 import { useRecoilValue } from "recoil";
 
 const Menu = () => {
-  const { username, password } = useRecoilValue(loginState);
+  const { username, password, token } = useRecoilValue(loginState);
   const [profile_img, setprofile_img] = useState("");
-  // useEffect(() => {
-  //   const checkLogin = async () => {
-  //     try {
-  //       const response = await instance.get("/user", {
-  //         username: username,
-  //         password: password,
-  //       });
-  //       setprofile_img(response.profile);
-  //     } catch (error) {
-  //       console.error(error);
-  //     }
-  //   };
-  //   checkLogin();
-  // }, [username, password]);
+  useEffect(() => {
+    setProfile(username, password);
+  }, [username, password, token]);
+
+  async function getUser(username, password) {
+    try {
+      const response = await instance.get("/user", {
+        username: username,
+        password: password,
+      });
+      return response;
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  const setProfile = (username, password) => {
+    const userdata = getUser(username, password);
+    const getData = () => {
+      userdata.then((res) => {
+        setprofile_img(res.profile);
+      });
+    };
+    getData();
+  };
 
   return (
     <>
