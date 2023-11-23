@@ -107,10 +107,16 @@ exports.user = (req, res) => {
           profile: res.data.profile,
           result: res.data.result,
         });
+        res.end();
       } else {
         res.send({ msg: "사용자 정보 없음" });
+        res.end();
       }
-      res.end();
     }
   );
+};
+
+// 프로필 사진
+exports.profile = (req, res) => {
+  const { username, imageUrl } = req.body;
 };

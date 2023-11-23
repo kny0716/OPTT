@@ -18,7 +18,7 @@ app.post("/logout", auth.logout);
 
 // user
 app.get("/user", auth.user);
-// app.get("/user/image", user.profile);
+app.get("/profile", auth.profile);
 
 // 서버 실행
 app.listen(port, (err) => {
