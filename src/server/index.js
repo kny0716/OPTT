@@ -3,6 +3,8 @@ var cors = require("cors");
 const multer = require("multer");
 const upload = multer({ dest: "public/uploads/" });
 var user = require("./user");
+const path = require("path");
+const publicPath = path.join(__dirname, "public");
 
 const port = 8080;
 const app = express();
@@ -12,6 +14,7 @@ module.exports = app;
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(express.static(publicPath));
 
 // auth
 app.post("/login", user.login);
