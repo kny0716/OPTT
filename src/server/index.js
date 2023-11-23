@@ -1,6 +1,8 @@
 var express = require("express");
 var cors = require("cors");
-var auth = require("./auth");
+const multer = require("multer");
+const upload = multer({ dest: "public/uploads/" });
+var user = require("./user");
 
 const port = 8080;
 const app = express();
@@ -12,13 +14,26 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // auth
-app.post("/login", auth.login);
-app.post("/register", auth.register);
-app.post("/logout", auth.logout);
+app.post("/login", user.login);
+app.post("/register", user.register);
+app.post("/logout", user.logout);
 
 // user
-app.get("/user", auth.user);
-app.get("/profile", auth.profile);
+app.get("/user", user.user);
+app.post("/user/result", user.result);
+
+// profile
+app.post("/profile", upload.single("profile"), (req, res, next) => {});
+
+// comments
+app.get("/comments", user.list);
+app.post("/comment/create", user.create);
+app.post("/comment/update", user.update);
+app.delete("/comment/delete", user.delete);
+
+// likes
+app.post("/like", user.like);
+app.post("/unlike", user.unlike);
 
 // 서버 실행
 app.listen(port, (err) => {
