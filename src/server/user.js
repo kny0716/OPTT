@@ -1,9 +1,10 @@
 var mysql = require("mysql");
+var ejs = require("ejs");
 
 var connection = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "nabong0716!",
+  password: "ckdmsdn330!!",
   database: "optt",
 });
 
@@ -25,13 +26,13 @@ exports.login = (req, res) => {
     function (error, results, fields) {
       if (error) throw error;
       if (results.length > 0) {
-        res.send({ msg: "로그인 성공", token: 1 });
         connection.query("UPDATE user SET token = 1 WHERE username = ?", [
           username,
         ]);
+        res.send({ msg: "로그인 성공", token: results[0].token });
         res.end();
       } else {
-        res.send({ msg: "로그인 실패", token: 0 });
+        res.send({ msg: "로그인 실패", token: results[0].token });
         res.end();
       }
     }
@@ -80,10 +81,10 @@ exports.logout = (req, res) => {
         connection.query("UPDATE user SET token = 0 WHERE username = ?", [
           username,
         ]);
-        res.send({ msg: "로그아웃 성공", token: 0 });
+        res.send({ msg: "로그아웃 성공", token: results[0].token });
         res.end();
       } else {
-        res.send({ msg: "로그아웃 실패", token: 1 });
+        res.send({ msg: "로그아웃 실패", token: results[0].token });
         res.end();
       }
     }
@@ -94,21 +95,18 @@ exports.logout = (req, res) => {
 exports.user = (req, res) => {
   const { username, password } = req.body;
   connection.query(
-    "SELECT nickname, profile, result FROM user WHERE username = ? AND password = ?",
+    "SELECT * FROM user WHERE username = ?, password = ?",
     [username, password],
     function (error, results, fields) {
       if (error) throw error;
-      console.log(results);
       if (results.length > 0) {
         res.send({
           msg: "사용자 정보",
-          nickname: results.nickname,
-          profile: results.profile,
-          result: results.result,
+          results: results[0],
         });
         res.end();
       } else {
-        res.send({ msg: "사용자 정보 없음" });
+        res.send({ msg: "사용자 정보 없음", results: results });
         res.end();
       }
     }
