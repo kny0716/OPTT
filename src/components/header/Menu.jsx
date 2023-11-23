@@ -7,20 +7,20 @@ import { useRecoilValue } from "recoil";
 const Menu = () => {
   const { username, password } = useRecoilValue(loginState);
   const [profile_img, setprofile_img] = useState("");
-  useEffect(() => {
-    const checkLogin = async () => {
-      try {
-        const response = await instance.get("/user", {
-          username: username,
-          password: password,
-        });
-        setprofile_img(response.profile);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    checkLogin();
-  }, [username, password]);
+  // useEffect(() => {
+  //   const checkLogin = async () => {
+  //     try {
+  //       const response = await instance.get("/user", {
+  //         username: username,
+  //         password: password,
+  //       });
+  //       setprofile_img(response.profile);
+  //     } catch (error) {
+  //       console.error(error);
+  //     }
+  //   };
+  //   checkLogin();
+  // }, [username, password]);
 
   return (
     <>

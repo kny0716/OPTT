@@ -1,6 +1,6 @@
 import Button from "../common/Button";
 import { useRecoilState } from "recoil";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { loginState, registerState } from "../../atoms";
 // import axios from "axios";
 import instance from "../../lib/axios";
@@ -79,19 +79,23 @@ export default function AuthForm({ type, form, onChange, onSubmit }) {
     }
   }
 
+  // useEffect(() => {
+  //   console.log(register);
+  // }, [register]);
+
   const handleSubmit = (e) => {
     if (type === "register") {
       if (isButtonEnabled) {
         console.log(username, password, passwordCheck);
         console.log("회원가입 성공");
         setRegister({
-          ...register,
           username: username,
           password: password,
           passwordConfirm: passwordCheck,
         });
-        console.log(register);
+
         registerUser(register);
+        console.log(register);
 
         setUsername("");
         setPassword("");
