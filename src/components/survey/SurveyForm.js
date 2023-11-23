@@ -1,8 +1,8 @@
 import React from "react";
 
-export default function SurveyForm(props) {
-  const index = parseInt(props.number);
-  const contents = props.contents;
+export default function SurveyForm({ number, contents, onSubmit }) {
+  const index = parseInt(number);
+  const { firstAnswerClick, secondAnswerClick } = onSubmit;
   return (
     <div id="survey">
       <div className="survey__div">
@@ -28,12 +28,12 @@ export default function SurveyForm(props) {
             {index <= 10 ? contents[index].query : contents[10].query}
           </div>
           <div className="answer__form">
-            <div className="survey__form__answer" onClick={props.onfirstClick}>
+            <div className="survey__form__answer" onClick={firstAnswerClick}>
               {index <= 10
                 ? contents[index].answers[0]
                 : contents[10].answers[0]}
             </div>
-            <div className="survey__form__answer" onClick={props.onsecondClick}>
+            <div className="survey__form__answer" onClick={secondAnswerClick}>
               {index <= 10
                 ? contents[index].answers[1]
                 : contents[10].answers[1]}
