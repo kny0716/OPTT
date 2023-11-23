@@ -1,7 +1,6 @@
 var express = require("express");
 var cors = require("cors");
 var auth = require("./auth");
-var user = require("./user");
 
 const port = 8080;
 const app = express();
@@ -18,7 +17,7 @@ app.post("/register", auth.register);
 app.post("/logout", auth.logout);
 
 // user
-app.get("/user", user.user);
+app.get("/user", auth.user);
 // app.get("/user/image", user.profile);
 
 // 서버 실행

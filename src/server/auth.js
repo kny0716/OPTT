@@ -1,9 +1,11 @@
 var mysql = require("mysql");
+const multer = require("multer");
+const upload = multer({ dest: "public/uploads/" });
 
 var connection = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "nabong0716!",
+  password: "ckdmsdn330!!",
   database: "optt",
 });
 
@@ -42,23 +44,28 @@ exports.login = (req, res) => {
 exports.register = (req, res) => {
   const { username, password } = req.body;
   connection.query(
-    "SELECT * FROM user WHERE username = ? AND password = ?",
-    [username, password],
+    "SELECT * FROM user WHERE username = ? ",
+    [username],
     function (error, results, fields) {
       if (error) throw error;
-      connection.query(
-        "INSERT INTO user (username, password) VALUES(?,?)",
-        [username, password],
-
-        function (error, data) {
-          if (error) {
-            res.send({ msg: "회원가입 실패!" });
-          } else {
-            res.send({ msg: "회원가입 성공!" });
+      if (results.length > 0) {
+        res.send({ msg: "이미 아이디가 존재합니다." });
+        res.end();
+      } else {
+        connection.query(
+          "INSERT INTO user (username, password) VALUES(?,?)",
+          [username, password],
+          function (error) {
+            if (error) {
+              res.send({ msg: "회원가입 실패!" });
+              res.end();
+            } else {
+              res.send({ msg: "회원가입 성공!" });
+              res.end();
+            }
           }
-        }
-      );
-      res.end();
+        );
+      }
     }
   );
 };
@@ -81,6 +88,29 @@ exports.logout = (req, res) => {
         res.send({ msg: "로그아웃 실패", token: 1 });
         res.end();
       }
+    }
+  );
+};
+
+// 사용자 정보
+exports.user = (req, res) => {
+  const { username, password } = req.body;
+  connection.query(
+    "SELECT nickname, profile, result FROM user WHERE username = ? AND password = ? LIMIT 1",
+    [username, password],
+    function (error, results, fields) {
+      if (error) throw error;
+      if (results.length > 0) {
+        res.send({
+          msg: "사용자 정보",
+          nickname: res.data.nickname,
+          profile: res.data.profile,
+          result: res.data.result,
+        });
+      } else {
+        res.send({ msg: "사용자 정보 없음" });
+      }
+      res.end();
     }
   );
 };
