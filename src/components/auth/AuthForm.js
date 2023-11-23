@@ -68,20 +68,28 @@ export default function AuthForm({ type, form, onChange, onSubmit }) {
     getData();
   };
 
-  async function registerUser(register) {
-    try {
-      await instance.post("/register", {
-        username: register.username,
-        password: register.password,
+  const validateId = (username, password) => {
+    const userdata = registerUser(username, password);
+    const getData = () => {
+      userdata.then((res) => {
+        if (res.data.msg === "이미 아이디가 존재합니다.") {
+          alert("이미 아이디가 존재합니다.");
+        }
       });
+    };
+    getData();
+  };
+  async function registerUser(username, password) {
+    try {
+      const response = await instance.post("/register", {
+        username: username,
+        password: password,
+      });
+      return response;
     } catch (error) {
       console.error(error);
     }
   }
-
-  // useEffect(() => {
-  //   console.log(register);
-  // }, [register]);
 
   const handleSubmit = (e) => {
     if (type === "register") {
@@ -94,18 +102,20 @@ export default function AuthForm({ type, form, onChange, onSubmit }) {
           passwordConfirm: passwordCheck,
         });
 
-        registerUser(register);
+        validateId(username, password);
         console.log(register);
 
         setUsername("");
         setPassword("");
         setPasswordCheck("");
         setIsButtonEnabled(false);
+        window.location.href = "/login";
       } else console.log("회원가입 실패");
     } else {
       validateUser(username, password);
       if (login.token !== 0) {
         console.log("로그인 성공");
+        window.location.href = "/";
       } else console.log("로그인 실패");
     }
   };
