@@ -1,15 +1,17 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import instance from "../../lib/axios";
 import { useState } from "react";
 import { loginState } from "../../atoms";
 import { useRecoilValue } from "recoil";
 
+// 아 이유 알았다. 이거 Menu가 body안 헤더인지 되게 애매하게 있어 그래서 잘 안되는 거 같아
+// 가장 좋은 거는 Main 안에 header넣고 고정시키는게 가장 좋을 거 같아. 그래서 값이 잘 안넘어가는 거 같아.
+// 로그인 token은 데베에서 끌고 온거라서 잘 넘어와 한 번 해봐
 const Menu = () => {
   const { username, password, token } = useRecoilValue(loginState);
   const [profile_img, setprofile_img] = useState("");
-  useEffect(() => {
-    setProfile(username, password);
-  }, [token]);
+
+  console.log(username, password, token, "username, password, token");
 
   async function getUser(username, password) {
     try {
@@ -17,8 +19,6 @@ const Menu = () => {
         username: username,
         password: password,
       });
-      console.log(username);
-      console.log(response);
       return response;
     } catch (error) {
       console.error(error);
@@ -32,8 +32,13 @@ const Menu = () => {
         setprofile_img(res.data.profile);
       });
     };
+    console.log(userdata, "userData");
     getData();
   };
+
+  useEffect(() => {
+    setProfile(username, password);
+  }, [token]);
 
   return (
     <>

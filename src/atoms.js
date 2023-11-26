@@ -1,4 +1,5 @@
 import { atom } from "recoil";
+
 export const loginState = atom({
   key: "loginState",
   default: { username: "", password: "", token: 0 },
