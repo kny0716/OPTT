@@ -34,7 +34,11 @@ export default function Login() {
     const userdata = getUser(username, password);
     const getData = () => {
       userdata.then((res) => {
-        setLogin({ ...login, token: res.data.token });
+        setLogin({
+          username: username,
+          password: password,
+          token: res.data.token,
+        });
       });
     };
     getData();
