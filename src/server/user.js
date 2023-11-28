@@ -122,6 +122,10 @@ exports.profile = (req, res, next) => {
   const { username } = req.body;
   const file = req.file;
   console.log(file);
+  connection.query("UPDATE user SET profile=? WHERE username=?", [
+    file.filename,
+    username,
+  ]);
 };
 
 // 설문조사 결과
