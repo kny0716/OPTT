@@ -11,7 +11,7 @@
 
   input {
     width: 289px;
-    height: 15px;
+    height: 18px;
     margin: 0 10px 0 20px;
     border: none;
     outline: none;
@@ -26,7 +26,6 @@
   @include mobile {
     input {
       width: 221px;
-      height: 12px;
       margin: 0 10px 0 15px;
       font-size: 0.857rem;
       font-weight: 700;

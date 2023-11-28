@@ -99,7 +99,7 @@ exports.logout = (req, res) => {
 exports.user = (req, res) => {
   const { username, password } = req.body;
   connection.query(
-    "SELECT * FROM user WHERE username = ? AND password = ?",
+    "SELECT * FROM user WHERE username = ?, password = ?",
     [username, password],
     function (error, results, fields) {
       if (error) throw error;

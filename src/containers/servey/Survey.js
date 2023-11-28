@@ -1,5 +1,7 @@
 import { useState } from "react";
 import SurveyForm from "../../components/survey/SurveyForm";
+import Loading from "../../components/common/Loding";
+import { useNavigate } from "react-router-dom";
 const contents = [
   {
     // [넷플릭스, 티빙, 쿠팡플레이, 디즈니플러스, 웨이브]
@@ -46,7 +48,7 @@ const contents = [
       "그래? 나는 한국 드라마가 더 좋던데..",
       "오 맞아! 나도 해외 드라마 좋아해",
     ],
-    result: { fisrt: [5, 5, 3, 3, 5], second: [5, 1, 3, 4, 2] },
+    result: { first: [5, 5, 3, 3, 5], second: [5, 1, 3, 4, 2] },
   },
   {
     query:
@@ -90,6 +92,10 @@ const contents = [
 export default function Survey() {
   const [question_number, set_question_number] = useState(0);
   const [result, set_result] = useState([0, 0, 0, 0, 0]);
+
+  const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
+
   const firstAnswerClick = (e) => {
     if (question_number === 10) {
       set_question_number(question_number + 1);
@@ -100,9 +106,10 @@ export default function Survey() {
         )
       );
       // result 서버한테 보내기
+      setLoading(true);
       setTimeout(() => {
-        window.location.href = "/result";
-      }, 700);
+        navigate("/result");
+      }, 5000);
     } else {
       set_question_number(question_number + 1);
       set_result(
@@ -114,7 +121,6 @@ export default function Survey() {
     }
   };
   const secondAnswerClick = (e) => {
-    console.log(question_number);
     if (question_number === 10) {
       set_question_number(question_number + 1);
       set_result(
@@ -124,9 +130,10 @@ export default function Survey() {
         )
       );
       // result 서버한테 보내기
+      setLoading(true);
       setTimeout(() => {
-        window.location.href = "/result";
-      }, 700);
+        navigate("/result");
+      }, 5000);
     } else {
       set_question_number(question_number + 1);
       set_result(
@@ -139,10 +146,15 @@ export default function Survey() {
   };
 
   return (
-    <SurveyForm
-      number={question_number}
-      contents={contents}
-      onSubmit={{ firstAnswerClick, secondAnswerClick }}
-    />
+    <>
+      {!loading && (
+        <SurveyForm
+          number={question_number}
+          contents={contents}
+          onSubmit={{ firstAnswerClick, secondAnswerClick }}
+        />
+      )}
+      {loading && <Loading />}
+    </>
   );
 }
