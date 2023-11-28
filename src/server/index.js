@@ -22,7 +22,7 @@ app.post("/register", user.register);
 app.post("/logout", user.logout);
 
 // user
-app.get("/user", user.user);
+app.post("/user", user.user);
 app.post("/user/result", user.result);
 
 // stats

@@ -42,20 +42,12 @@
     }
   }
 
-  #home__character {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 85%;
-    transform: translate(0%, -75%);
-  }
-
   @include mobile {
     h1 {
-      font-size: 2.4rem;
+      font-size: 2.2rem;
     }
     p {
-      font-size: 0.9rem;
+      font-size: 0.8rem;
     }
     div {
       li {
@@ -70,8 +62,40 @@
         }
       }
     }
-    #home__character {
-      height: 75%;
+  }
+
+  @include tablet {
+    h1 {
+      padding: 100px 0 0 0;
     }
+    p {
+      margin: 20px 0 0 0;
+    }
+    div {
+      li {
+        img {
+          margin-top: 18%;
+        }
+        h3 {
+          margin-top: 3%;
+        }
+      }
+    }
+  }
+}
+
+#home__character {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 85%;
+  transform: translate(0%, -75%);
+
+  @include mobile {
+    height: 70%;
+  }
+
+  @include tablet {
+    height: 75%;
   }
 }

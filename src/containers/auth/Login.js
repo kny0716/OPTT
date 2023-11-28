@@ -44,7 +44,6 @@ export default function Login() {
         });
       });
     };
-    console.log("validateUser", userdata);
     getData();
   };
 
@@ -56,8 +55,42 @@ export default function Login() {
     if (login.token !== 0) {
       console.log("로그인 성공");
       navigate("/");
+      setProfile(username, password);
     } else console.log("로그인 실패");
   }, [login.token]);
+
+  async function getUserData(username, password) {
+    try {
+      const response = await instance.post("/user", {
+        username: username,
+        password: password,
+      });
+      console.log(response, "response");
+      return response;
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  const setProfile = async (username, password) => {
+    const userdata = getUserData(username, password);
+    const getProfileData = () => {
+      userdata.then((res) => {
+        setLogin({
+          username: username,
+          password: password,
+          token: res.token,
+          profile: res.profile,
+        });
+        console.log(res.token);
+        console.log(res.profile);
+        console.log(res, "userData"); // 이게 undefind
+      });
+    };
+    getProfileData();
+    console.log(login.token, "token");
+    console.log(login.profile, "profile");
+  };
 
   return (
     <AuthForm

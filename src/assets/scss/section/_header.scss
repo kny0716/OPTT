@@ -22,6 +22,12 @@
       margin: 0 0 0 20px;
     }
   }
+
+  @include tablet {
+    img {
+      margin: 0 0 0 50px;
+    }
+  }
 }
 
 .header__menu {
@@ -63,6 +69,12 @@
           padding: 0.47rem 0.6rem 0.47rem 0.6rem;
         }
       }
+    }
+  }
+
+  @include tablet {
+    ul {
+      margin: 0 40px 0 0;
     }
   }
 }

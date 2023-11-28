@@ -29,7 +29,7 @@ exports.login = (req, res) => {
         connection.query("UPDATE user SET token = 1 WHERE username = ?", [
           username,
         ]);
-        res.send({ msg: "로그인 성공", token: results[0].token });
+        res.send({ msg: "로그인 성공", token: 1 }); // 이거 그냥 token: results[0].token 이렇게 되어있길래 1로 잠시 수정했어
         res.end();
       } else {
         res.send({ msg: "로그인 실패", token: results[0].token });
@@ -95,7 +95,7 @@ exports.logout = (req, res) => {
 exports.user = (req, res) => {
   const { username, password } = req.body;
   connection.query(
-    "SELECT * FROM user WHERE username = ?, password = ?",
+    "SELECT * FROM user WHERE username = ? AND password = ?", // 여기서 자꾸 문법 오류나서 , -> AND로 바꿨어
     [username, password],
     function (error, results, fields) {
       if (error) throw error;
