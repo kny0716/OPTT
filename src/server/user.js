@@ -29,7 +29,11 @@ exports.login = (req, res) => {
         connection.query("UPDATE user SET token = 1 WHERE username = ?", [
           username,
         ]);
-        res.send({ msg: "로그인 성공", token: results[0].token });
+        res.send({
+          msg: "로그인 성공",
+          token: results[0].token,
+          result: results[0],
+        });
         res.end();
       } else {
         res.send({ msg: "로그인 실패", token: results[0].token });
@@ -95,7 +99,7 @@ exports.logout = (req, res) => {
 exports.user = (req, res) => {
   const { username, password } = req.body;
   connection.query(
-    "SELECT * FROM user WHERE username = ?, password = ?",
+    "SELECT * FROM user WHERE username = ? AND password = ?",
     [username, password],
     function (error, results, fields) {
       if (error) throw error;
@@ -111,6 +115,13 @@ exports.user = (req, res) => {
       }
     }
   );
+};
+
+// 프로필 업로드
+exports.profile = (req, res, next) => {
+  const { username } = req.body;
+  const file = req.file;
+  console.log(file);
 };
 
 // 설문조사 결과
