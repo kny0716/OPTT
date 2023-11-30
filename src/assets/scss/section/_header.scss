@@ -59,6 +59,22 @@
     }
   }
 
+  .profile_img {
+    width: 35px;
+    height: 35px;
+  }
+
+  .modal_btn {
+    width: 24px;
+    height: 24px;
+    margin: 0 0 0 12px;
+  }
+
+  .modal_btn_container {
+    display: flex;
+    align-items: center;
+  }
+
   @include mobile {
     ul {
       margin: 0 0.625rem 0 0;

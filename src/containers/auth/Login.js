@@ -79,12 +79,12 @@ export default function Login() {
         setLogin({
           username: username,
           password: password,
-          token: res.token,
-          profile: res.profile,
+          token: res.data.results.token,
+          profile: res.data.results.profile,
         });
-        console.log(res.token);
-        console.log(res.profile);
-        console.log(res, "userData"); // 이게 undefind
+        console.log(res.data.results.token);
+        console.log(res.data.results.profile);
+        console.log(res, "userData");
       });
     };
     getProfileData();

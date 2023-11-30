@@ -1,56 +1,33 @@
 import { useCallback, useRef } from "react";
 import { Link } from "react-router-dom";
+import instance from "../../lib/axios";
+import { loginState } from "../../atoms";
 
-/*
-const Wrapper = styled.div`
-  width: 116px;
-  margin: 10px 0 0 0;
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-evenly;
-
-  span {
-    transform: translate(0, -78%);
-  }
-
-  input {
-    display: none;
-  }
-`;
-
-const ProfileImage = styled.img`
-width:110px;
-height:110px;
-border-radius: 100%;
-z-index: 1;
-}`;
-
-const FileBlock = styled(Link)`
-  img {
-    width: 38px;
-    height: 38px;
-    border-radius: 100%;
-    object-fit: cover;
-
-    position: relative;
-    z-index: 2;
-    transform: translate(118%, -78%);
-
-    &:hover {
-      cursor: pointer;
-    }
-  }
-`;
-
-*/
-
-// 파일 업로드
 export default function Upload(props) {
   const inputRef = useRef(null);
   const userImage = props.img;
   const username = props.username;
+
+  const handlePost = (e) => {
+    const formData = new FormData();
+    formData.append("file", e.target.files[0]);
+
+    return instance
+      .post("/profile", formData)
+      .then((res) => {
+        console.log(res);
+        // setLogin({
+        //   username: login.username,
+        //   password: login.password,
+        //   token: login.token,
+        //   profile: e.tartget.files[0],
+        //   result: login.result,
+        // }); // post하고 나면 menu, modal이 바뀌어야하는데 이렇게 바꿔야하지 않나?
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   const onUploadImageButtonClick = useCallback(() => {
     if (!inputRef.current) {
@@ -66,16 +43,14 @@ export default function Upload(props) {
         type="file"
         accept="image/*"
         ref={inputRef}
-        onChange={props.onUpload}
+        onChange={(e) => handlePost(e)}
       />
-      {/* <div onClick={onUploadImageButtonClick}> */}
       <img
         className="profile__edit"
         src="/img/profile_edit.svg"
         alt="edit"
         onClick={onUploadImageButtonClick}
       />
-      {/* </div> */}
       <span>{username}</span>
     </>
   );

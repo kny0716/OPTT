@@ -10,6 +10,13 @@ const Loading = () => {
     "/img/logo/tving.svg",
     "/img/logo/coupangplay.svg",
   ];
+  // const size = [
+  //   [17.25, 12.5],
+  //   [20, 11.25],
+  //   [29.5625, 5.625],
+  //   [25.1875, 5.625],
+  //   [13.125, 14.375],
+  // ];
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -24,10 +31,20 @@ const Loading = () => {
   return (
     <div className="loading-container">
       <div className="loading-component">
-        <img
-          src={imageUrls[currentImageIndex]}
-          alt={`${currentImageIndex + 1}`}
-        />
+        <div className="loading-img">
+          <img
+            src={imageUrls[currentImageIndex]}
+            alt={`${currentImageIndex + 1}`}
+          />
+          {/* <img
+            src={imageUrls[currentImageIndex]}
+            alt={`${currentImageIndex + 1}`}
+            style={{
+              width: `${size[currentImageIndex][0]}rem`,
+              height: `${size[currentImageIndex][1]}rem`,
+            }}
+          /> */}
+        </div>
         <p>나와 어울리는 OTT는?</p>
       </div>
     </div>
