@@ -1,70 +1,74 @@
-# Getting Started with Create React App
+OPTT API 명세서
+공통 : msg (성공, 실패)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+1. 로그인
+   방식 : POST
+   URL : '/login'
+   보내는 객체 : {username, password}
+   응답 : data (token - Boolean)
 
-## Available Scripts
+1. 소셜 로그인
+   방식 : GET
+   URL : '/social/login'
+   보내는 객체 : {platform}
+   응답 : data (token - Boolean)
 
-In the project directory, you can run:
+1. 회원가입
+   방식 : POST
+   URL : '/register'
+   보내는 객체 : {username, password}
 
-### `npm start`
+1. 로그아웃
+   방식 : POST
+   URL : '/logout'
+   보내는 객체 : {username, password}
+   응답 : data (token - Boolean)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+1. 사용자 정보
+   방식 : GET
+   URL : '/user'
+   보내는 객체 : {username, password}
+   응답 : data (profile - String, nickname - String, result - String)
+   profile에 URL 들어가
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+1. 메인 페이지 (댓글 및 좋아요)
+   방식 : GET
+   URL : '/comments'
+   응답 : data (comments - List)
+   객체 배열이야 [{createdAt : Date, comment : String, like : Int, commnet_id : Int}]
+   // page는 나중에 추가
 
-### `npm test`
+1. 사용자 결과 저장
+   방식 : POST
+   URL : '/user/result'
+   보내는 객체 : {username, password, result}
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+1. 댓글 입력
+   방식 : POST
+   URL : '/comment/create'
+   보내는 객체 : {username, comment}
+   <!-- 응답 : data () -->
 
-### `npm run build`
+1. 댓글 수정
+   방식 : POST
+   URL : '/comment/update'
+   보내는 객체 : {username, comment_id, comment}
+   <!-- 응답 : data (token - Boolean) -->
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+1. 댓글 삭제
+   방식 : DELETE
+   URL : '/comment/delete'
+   보내는 객체 : {comment_id}
+   <!-- 응답 : data (token - Boolean) -->
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+1. 좋아요 입력
+   방식 : POST
+   URL : '/like'
+   보내는 객체 : {username, comment_id, likes}
+   <!-- 응답 : data (token - Boolean) -->
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+1. 좋아요 취소
+   방식 : POST
+   URL : '/unlike'
+   보내는 객체 : {username, comment_id, likes}
+   <!-- 응답 : data (token - Boolean) -->

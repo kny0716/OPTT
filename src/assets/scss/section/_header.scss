@@ -1,3 +1,4 @@
+@import "../setting/mixin";
 #header {
   filter: drop-shadow(0 0 0.7rem rgb(0 0 0 / 10%));
   display: flex;
@@ -13,6 +14,19 @@
     margin: 0 0 0 137px;
     padding: 0 0 5px 0;
     object-fit: contain;
+  }
+  @include mobile {
+    img {
+      width: 70px;
+      height: 30px;
+      margin: 0 0 0 20px;
+    }
+  }
+
+  @include tablet {
+    img {
+      margin: 0 0 0 50px;
+    }
   }
 }
 
@@ -42,6 +56,41 @@
           background-color: #ebfafe;
         }
       }
+    }
+  }
+
+  .profile_img {
+    width: 35px;
+    height: 35px;
+  }
+
+  .modal_btn {
+    width: 24px;
+    height: 24px;
+    margin: 0 0 0 12px;
+  }
+
+  .modal_btn_container {
+    display: flex;
+    align-items: center;
+  }
+
+  @include mobile {
+    ul {
+      margin: 0 0.625rem 0 0;
+      li {
+        font-size: 0.75rem;
+        #register {
+          margin: 0;
+          padding: 0.47rem 0.6rem 0.47rem 0.6rem;
+        }
+      }
+    }
+  }
+
+  @include tablet {
+    ul {
+      margin: 0 40px 0 0;
     }
   }
 }

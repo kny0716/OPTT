@@ -1,10 +1,9 @@
-import React from "react";
 import Menu from "../header/Menu";
 
-const Header = () => {
+const Header = ({ openModal }) => {
   return (
     <div id="header" role="banner">
-      <Menu />
+      <Menu openModal={openModal} />
     </div>
   );
 };

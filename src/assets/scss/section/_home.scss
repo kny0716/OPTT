@@ -1,3 +1,4 @@
+@import "../setting/mixin";
 #main__page {
   text-align: center;
 
@@ -41,16 +42,60 @@
     }
   }
 
-  #home__character {
-    position: absolute;
-    top: 0;
-    left: 0;
-    // width: 80%;
-    height: 120%;
-    // top: 38%;
-    // left: 50%;
-    // width: 26%;
-    // height: 41.8%;
-    transform: translate(0%, -80%);
+  @include mobile {
+    h1 {
+      font-size: 2.2rem;
+    }
+    p {
+      font-size: 0.8rem;
+    }
+    div {
+      li {
+        img {
+          margin-top: 18%;
+          width: 15.625rem;
+          height: 4.6875rem;
+        }
+        h3 {
+          margin-top: 7%;
+          font-size: 1rem;
+        }
+      }
+    }
+  }
+
+  @include tablet {
+    h1 {
+      padding: 100px 0 0 0;
+    }
+    p {
+      margin: 20px 0 0 0;
+    }
+    div {
+      li {
+        img {
+          margin-top: 18%;
+        }
+        h3 {
+          margin-top: 3%;
+        }
+      }
+    }
+  }
+}
+
+#home__character {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 85%;
+  transform: translate(0%, -75%);
+
+  @include mobile {
+    height: 70%;
+  }
+
+  @include tablet {
+    height: 75%;
   }
 }
