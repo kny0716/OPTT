@@ -10,7 +10,7 @@
 
 .modal__form {
   top: 81px;
-  left: 80vw;
+  left: 75vw;
   width: 200px;
   height: 265px;
   padding: 20px;
@@ -56,6 +56,13 @@
 }
 .contents__logout {
   padding: 0 0 0 16px;
+  border: 0;
+  background-color: transparent;
+
+  font-size: 0.875rem;
+  font-weight: 900;
+
+  text-align: left;
 }
 
 .profile {

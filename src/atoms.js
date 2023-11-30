@@ -22,3 +22,9 @@ export const registerState = atom({
   key: "registerState",
   default: { username: "", password: "", passwordConfirm: "" },
 });
+
+export const commentListState = atom({
+  key: "commentListState",
+  default: [],
+  effects_UNSTABLE: [persistAtom],
+});

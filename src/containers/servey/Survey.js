@@ -2,6 +2,11 @@ import { useState } from "react";
 import SurveyForm from "../../components/survey/SurveyForm";
 import Loading from "../../components/common/Loding";
 import { useNavigate } from "react-router-dom";
+import instance from "../../lib/axios";
+import { loginState } from "../../atoms";
+import { useRecoilState } from "recoil";
+
+const ott = ["넷플릭스", "티빙", "쿠팡플레이", "디즈니플러스", "웨이브"];
 const contents = [
   {
     // [넷플릭스, 티빙, 쿠팡플레이, 디즈니플러스, 웨이브]
@@ -90,30 +95,32 @@ const contents = [
 ];
 
 export default function Survey() {
-  const [question_number, set_question_number] = useState(0);
-  const [result, set_result] = useState([0, 0, 0, 0, 0]);
+  const [login, setLogin] = useRecoilState(loginState);
 
-  const [loading, setLoading] = useState(true);
+  const [question_number, set_question_number] = useState(0);
+  const [survey_result, set_survey_result] = useState([0, 0, 0, 0, 0]);
+
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const firstAnswerClick = (e) => {
     if (question_number === 10) {
       set_question_number(question_number + 1);
-      set_result(
-        result.map(
+      set_survey_result(
+        survey_result.map(
           (value, index) =>
             value + contents[question_number].result.first[index]
         )
       );
-      // result 서버한테 보내기
+      setResult(login.username, login.password, survey_result);
       setLoading(true);
       setTimeout(() => {
         navigate("/result");
       }, 5000);
     } else {
       set_question_number(question_number + 1);
-      set_result(
-        result.map(
+      set_survey_result(
+        survey_result.map(
           (value, index) =>
             value + contents[question_number].result.first[index]
         )
@@ -123,27 +130,55 @@ export default function Survey() {
   const secondAnswerClick = (e) => {
     if (question_number === 10) {
       set_question_number(question_number + 1);
-      set_result(
-        result.map(
+      set_survey_result(
+        survey_result.map(
           (value, index) =>
             value + contents[question_number].result.second[index]
         )
       );
-      // result 서버한테 보내기
+      setResult(login.username, login.password, survey_result);
       setLoading(true);
       setTimeout(() => {
         navigate("/result");
       }, 5000);
     } else {
       set_question_number(question_number + 1);
-      set_result(
-        result.map(
+      set_survey_result(
+        survey_result.map(
           (value, index) =>
             value + contents[question_number].result.second[index]
         )
       );
     }
   };
+
+  function findResult(result, ott) {
+    let maxIndex = 0;
+    for (let i = 1; i < result.length; i++) {
+      if (result[i] > result[maxIndex]) {
+        maxIndex = i;
+      }
+    }
+    return ott[maxIndex];
+  }
+
+  // async await로 해야하나?
+  async function setResult(username, password, result) {
+    const result_ott = findResult(result, ott);
+    console.log(result_ott);
+    await instance
+      .post("/user/result", {
+        username: username,
+        password: password,
+        result: result_ott,
+      })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
 
   return (
     <>

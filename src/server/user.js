@@ -163,6 +163,7 @@ exports.total = (req, res) => {
 
 // 댓글 불러오기
 exports.list = (req, res) => {
+  const username = req.body;
   connection.query(
     "SELECT * FROM comments LIMIT 10",
     function (error, results, fields) {

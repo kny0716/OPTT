@@ -29,7 +29,7 @@ app.post("/user/result", user.result);
 app.get("/stats", user.total);
 
 // comments
-app.get("/comments", user.list);
+app.post("/comments", user.list);
 app.post("/comment/create", user.create);
 app.post("/comment/update", user.update);
 app.delete("/comment/delete", user.delete);
