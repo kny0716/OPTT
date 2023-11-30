@@ -100,7 +100,7 @@ exports.logout = (req, res) => {
 exports.user = (req, res) => {
   const { username, password } = req.body;
   connection.query(
-    "SELECT * FROM user WHERE username = ?, password = ?",
+    "SELECT * FROM user WHERE username = ? AND password = ?",
     [username, password],
     function (error, results, fields) {
       if (error) throw error;
@@ -123,10 +123,6 @@ exports.profile = (req, res, next) => {
   const { username } = req.body;
   const file = req.file;
   console.log(file);
-  connection.query("UPDATE user SET profile=? WHERE username=?", [
-    file.filename,
-    username,
-  ]);
 };
 
 // 설문조사 결과
@@ -156,7 +152,7 @@ exports.result = (req, res) => {
       }
     );
   } else {
-    connection.query("UPDATE stats SET total_users+=1");
+    connection.query("UPDATE stats SET total_users=total_users+1");
     res.send({ msg: "비로그인 사용자 +1" });
     res.end();
   }
@@ -179,12 +175,17 @@ exports.total = (req, res) => {
 
 // 댓글 불러오기
 exports.list = (req, res) => {
+  const username = req.body;
   connection.query(
     "SELECT * FROM comments LIMIT 10",
     function (error, results, fields) {
       if (error) throw error;
       if (results.length > 0) {
-        res.send({ msg: "불러오기 성공", lists: res.data });
+        console.log("시작222");
+        res.send({ msg: "불러오기 성공", lists: results });
+        res.end();
+      } else {
+        res.send({ msg: "불러오기 실패", lists: results });
         res.end();
       }
     }
@@ -195,7 +196,7 @@ exports.list = (req, res) => {
 exports.create = (req, res) => {
   const { username, comment } = req.body;
   connection.query(
-    "INSERT INTO comments comment VALUES(?) WHERE username= ?",
+    "INSERT INTO comments (comment, username) VALUES (?, ?)",
     [comment, username],
     function (error, results, fields) {
       if (error) throw error;
