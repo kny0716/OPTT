@@ -1,23 +1,27 @@
 import { useEffect, useState } from "react";
 import Comment from "./Comment";
-export default function CommentList({ commentsList, editComment }) {
+export default function CommentList({
+  commentList,
+  editComment,
+  deleteComment,
+}) {
   const [selectedIndex, setSelectedIndex] = useState(0);
-
-  // const [commentList, setCommentList] = useState(commentListState);
   return (
     <ul className="comment__list">
-      {commentsList.map((comment) => {
-        const comment_id = comment.id;
-        return (
-          <Comment
-            key={comment_id}
-            comment={comment}
-            isEditing={selectedIndex === comment_id ? true : false}
-            setSelectedIndex={setSelectedIndex}
-            editComment={editComment}
-          ></Comment>
-        );
-      })}
+      {commentList &&
+        commentList.map((comment) => {
+          return (
+            <Comment
+              key={comment.comment_id}
+              comment={comment}
+              isEditing={selectedIndex === comment.comment_id ? true : false}
+              setSelectedIndex={setSelectedIndex}
+              selectedIndex={selectedIndex}
+              editComment={editComment}
+              deleteComment={deleteComment}
+            ></Comment>
+          );
+        })}
     </ul>
   );
 }

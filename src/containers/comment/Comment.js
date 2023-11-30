@@ -5,14 +5,17 @@ import { loginState } from "../../atoms";
 import instance from "../../lib/axios";
 
 export default function Comment({
-  comment: { id, username, content },
+  comment: { comment, comment_id, createdAt, likes, username },
   isEditing,
   setSelectedIndex,
+  selectedIndex,
   editComment,
+  deleteComment,
 }) {
-  const [editValue, setEditValue] = useState(content);
+  const [login] = useRecoilState(loginState);
+  const [editValue, setEditValue] = useState(comment);
   const handleEditInput = () => {
-    editComment(id, editValue);
+    editComment(comment_id, editValue);
     setSelectedIndex(0);
   };
 
@@ -29,17 +32,24 @@ export default function Comment({
     if (isEditing) {
       handleEditInput();
     } else {
-      setSelectedIndex(id);
+      setSelectedIndex(comment_id);
     }
   };
 
+  const handleDeleteButtonClick = () => {
+    deleteComment(comment_id);
+  };
+
   return (
-    <li id={id}>
+    <li id={comment_id}>
       <span className="comment__form">
         <span>{username}</span>
-        {isEditing ? editInput : <span>{content}</span>}
+        {isEditing ? editInput : <span>{comment}</span>}
         <button className="edit__btn" onClick={handleEditButtonClick}>
           수정
+        </button>
+        <button className="delete__btn" onClick={handleDeleteButtonClick}>
+          삭제
         </button>
       </span>
     </li>

@@ -58,7 +58,7 @@ OPTT API 명세서
 1. 댓글 삭제
    방식 : DELETE
    URL : '/comment/delete'
-   보내는 객체 : {username, comment}
+   보내는 객체 : {comment_id}
    <!-- 응답 : data (token - Boolean) -->
 
 1. 좋아요 입력

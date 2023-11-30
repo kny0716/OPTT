@@ -112,7 +112,9 @@ export default function Survey() {
             value + contents[question_number].result.first[index]
         )
       );
-      setResult(login.username, login.password, survey_result);
+      if (login.token === 1) {
+        setResult(login.username, login.password, survey_result);
+      }
       setLoading(true);
       setTimeout(() => {
         navigate("/result");
@@ -136,7 +138,9 @@ export default function Survey() {
             value + contents[question_number].result.second[index]
         )
       );
-      setResult(login.username, login.password, survey_result);
+      if (login.token === 1) {
+        setResult(login.username, login.password, survey_result);
+      }
       setLoading(true);
       setTimeout(() => {
         navigate("/result");

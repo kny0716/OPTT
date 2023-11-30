@@ -15,19 +15,8 @@ export default function WrapComments() {
   };
 
   const addComment = () => {
-    if (input !== "") {
-      const lastCmtIndex = commentList.length > 0 ? commentList.length - 1 : 0;
-      const addedCmtId =
-        commentList.length > 0 ? commentList[lastCmtIndex].id + 1 : 1;
-      const newComment = {
-        id: addedCmtId,
-        username: "bibigo",
-        content: input,
-      };
-      setCommentList([...commentList, newComment]);
-      submitNewComment(input);
-      setInput("");
-    }
+    submitNewComment(input);
+    setInput("");
   };
 
   async function getComments() {
@@ -45,7 +34,8 @@ export default function WrapComments() {
     const commentsdata = getComments();
     const getData = () => {
       commentsdata.then((res) => {
-        setCommentList(res.data.comments);
+        setCommentList(res.data.lists);
+        console.log(res.data.lists);
       });
     };
     getData();
@@ -53,23 +43,42 @@ export default function WrapComments() {
 
   const editComment = (comment_id, edit_value) => {
     let newCommentList = commentList.map((comment) => {
-      if (comment.id === comment_id) {
-        return { ...comment, content: edit_value };
+      if (comment.comment_id === comment_id) {
+        return { ...comment, comment: edit_value };
       }
       return comment;
     });
+    changeComment(login.username, comment_id, edit_value);
     setCommentList(newCommentList);
+    getCommentsData();
   };
+
+  async function changeComment(username, comment_id, comment) {
+    await instance.post("/comment/update", {
+      username: username,
+      comment_id: comment_id,
+      comment: comment,
+    });
+  }
 
   async function submitNewComment(comment) {
     const lastCmtIndex = commentList.length > 0 ? commentList.length - 1 : 0;
     const addedCmtId =
       commentList.length > 0 ? commentList[lastCmtIndex].id + 1 : 1;
-    await instance.post("/comment/update", {
+    await instance.post("/comment/create", {
       username: login.username,
       comment_id: addedCmtId,
       comment: comment,
     });
+    getCommentsData();
+  }
+
+  async function deleteComment(comment_id) {
+    console.log(comment_id);
+    await instance.post("/comment/delete", {
+      comment_id: comment_id,
+    });
+    getCommentsData();
   }
 
   useEffect(() => {
@@ -80,8 +89,9 @@ export default function WrapComments() {
     <>
       <div className="comment__wrap">
         <CommentList
-          commentsList={commentList}
+          commentList={commentList}
           editComment={editComment}
+          deleteComment={deleteComment}
         ></CommentList>
       </div>
       <div className="box-inp-cmt">
