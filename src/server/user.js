@@ -212,7 +212,7 @@ exports.create = (req, res) => {
 exports.update = (req, res) => {
   const { username, comment_id, comment } = req.body;
   connection.query(
-    "UPDATE comments SET comment=? WHERE username=?, comment_id=?",
+    "UPDATE comments SET comment=? WHERE username=? AND comment_id=?",
     [comment, username, comment_id],
     function (error, results, fields) {
       if (error) {
