@@ -6,18 +6,19 @@ export default function CommentList({ commentsList, editComment }) {
   // const [commentList, setCommentList] = useState(commentListState);
   return (
     <ul className="comment__list">
-      {commentsList.map((comment) => {
-        const comment_id = comment.id;
-        return (
-          <Comment
-            key={comment_id}
-            comment={comment}
-            isEditing={selectedIndex === comment_id ? true : false}
-            setSelectedIndex={setSelectedIndex}
-            editComment={editComment}
-          ></Comment>
-        );
-      })}
+      {commentsList &&
+        commentsList.map((comment) => {
+          const comment_id = comment.id;
+          return (
+            <Comment
+              key={comment_id}
+              comment={comment}
+              isEditing={selectedIndex === comment_id ? true : false}
+              setSelectedIndex={setSelectedIndex}
+              editComment={editComment}
+            ></Comment>
+          );
+        })}
     </ul>
   );
 }
