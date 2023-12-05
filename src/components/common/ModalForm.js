@@ -4,10 +4,14 @@ export default function ModalForm({ close, logout, resultClick, profile }) {
   if (profile === "") {
     profile = "/img/profile.svg";
   }
+  const imagePath = "/img/modal_background.svg";
   return (
     <div className="wrapper">
       <div className="overlay" onClick={close}></div>
-      <div className="modal__form">
+      <div
+        className="modal__form"
+        style={{ backgroundImage: `url('${imagePath}')` }}
+      >
         <div className="profile">
           <Upload img={profile} username="account" />
         </div>

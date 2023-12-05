@@ -10,15 +10,12 @@
 
 .modal__form {
   top: 81px;
-  left: 85vw;
+  left: 75vw;
   width: 200px;
   height: 265px;
   padding: 20px;
   border-radius: 16px;
-  background-color: white;
-
-  // url 인식 못함
-  background-image: url(`${process.env.PUBLIC_URL}/img/modal_background.svg`);
+  border: none;
 
   position: fixed;
   display: flex;
@@ -27,10 +24,7 @@
 
   overflow: hidden;
   z-index: 999;
-  box-shadow: 0px 35px 10px 0 rgba(0, 0, 0, 0),
-    0px 23px 9px 0 rgba(0, 0, 0, 0.01), 0px 13px 8px 0 rgba(0, 0, 0, 0.05),
-    0px 6px 6px 0 rgba(0, 0, 0, 0.09), 0px 1px 3px 0 rgba(0, 0, 0, 0.1);
-
+  box-shadow: 0px 8px 8px 0 rgba(0, 0, 0, 0.1);
   @include tablet {
     left: 72vw;
   }

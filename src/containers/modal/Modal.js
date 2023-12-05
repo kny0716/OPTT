@@ -19,6 +19,7 @@ export default function Modal({ close }) {
       profile: "",
     });
     close();
+    navigate("/");
   };
 
   const resultClick = () => {

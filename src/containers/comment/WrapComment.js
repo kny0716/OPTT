@@ -105,7 +105,26 @@ export default function WrapComments() {
 
   return (
     <>
-      <div className="comment__wrap">
+      <div className="comment__input__container">
+        {login.username !== "" && (
+          <div className="comment__input">
+            <p>댓글</p>
+            <input
+              type="text"
+              value={input}
+              onChange={inputChange}
+              onKeyDown={(e) => (e.key === "Enter" ? addComment() : null)}
+            />
+            <div className="submit__btn__container">
+              <button className="submit__btn" disabled="" onClick={addComment}>
+                등록
+              </button>
+            </div>
+          </div>
+        )}
+        <div className="comment__input__line"></div>
+      </div>
+      <div className="comment__list__container">
         <CommentList
           commentList={commentList}
           editComment={editComment}
@@ -113,22 +132,6 @@ export default function WrapComments() {
           postLike={postLike}
           deleteLike={deleteLike}
         ></CommentList>
-      </div>
-      <div className="box-inp-cmt">
-        {login.username !== "" && (
-          <div className="comment__input">
-            <input
-              type="text"
-              placeholder="댓글 달기..."
-              value={input}
-              onChange={inputChange}
-              onKeyDown={(e) => (e.key === "Enter" ? addComment() : null)}
-            />
-            <button className="btn-submit" disabled="" onClick={addComment}>
-              게시
-            </button>
-          </div>
-        )}
       </div>
     </>
   );

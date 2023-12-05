@@ -15,18 +15,28 @@ export default function Comment({
 }) {
   const [login] = useRecoilState(loginState);
   const [editValue, setEditValue] = useState(comment);
+  const [isLiked, setIsLiked] = useState(false);
   const handleEditInput = () => {
     editComment(comment_id, editValue);
     setSelectedIndex(0);
   };
 
   const editInput = (
-    <input
-      type="text"
-      value={editValue}
-      onChange={(e) => setEditValue(e.target.value)}
-      onKeyDown={(e) => (e.key === "Enter" ? handleEditInput() : null)}
-    />
+    <div className="comment__edit__input">
+      <input
+        type="text"
+        value={editValue}
+        onChange={(e) => setEditValue(e.target.value)}
+        onKeyDown={(e) => (e.key === "Enter" ? handleEditInput() : null)}
+      />
+      <button
+        className="submit__edit__btn"
+        disabled=""
+        onClick={handleEditInput}
+      >
+        등록
+      </button>
+    </div>
   );
 
   const handleEditButtonClick = () => {
@@ -42,19 +52,30 @@ export default function Comment({
   };
 
   const handleLikeButtonClick = () => {
+    setIsLiked(true);
     postLike(username, comment_id, likes);
     console.log(likes);
   };
 
   const handleUnlikeButtonClick = () => {
+    setIsLiked(false);
     deleteLike(username, comment_id, likes);
   };
 
   return (
     <li id={comment_id}>
-      <span className="comment__form">
-        <span>{username}</span>
-        {isEditing ? editInput : <span>{comment}</span>}
+      <div className="comment__form">
+        <div className="comment__title">
+          <div className="comment__profile"></div>
+          <div className="comment__title__contents">
+            <p className="username">{username}</p>
+            <p className="date">{createdAt}</p>
+          </div>
+        </div>
+        <div className="comment__contents__container">
+          <div className="comment">{comment}</div>
+          {isEditing && editInput}
+        </div>
         {login.username === username && (
           <div>
             <button className="edit__btn" onClick={handleEditButtonClick}>
@@ -65,15 +86,23 @@ export default function Comment({
             </button>
           </div>
         )}
-        <button className="like__btn" onClick={handleLikeButtonClick}>
-          좋아요
-        </button>
-        <button className="unlike__btn" onClick={handleUnlikeButtonClick}>
-          좋아요 취소
-        </button>
-        <div> 좋아요 수 {likes}</div>
-      </span>
+        <div className="comment__like__container">
+          {isLiked ? (
+            <img
+              className="like__btn"
+              src="/img/result/like_button.svg"
+              onClick={handleUnlikeButtonClick}
+            />
+          ) : (
+            <img
+              className="like__btn"
+              src="/img/result/like_button.svg"
+              onClick={handleLikeButtonClick}
+            />
+          )}
+          <p className="like"> 좋아요 수 {likes}</p>
+        </div>
+      </div>
     </li>
   );
 }
-
