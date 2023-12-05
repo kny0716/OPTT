@@ -8,25 +8,41 @@ export default function Upload(props) {
   const userImage = props.img;
   const username = props.username;
 
+  const postUserImage = async (account, formData) => {
+    try {
+      const res = await instance.post(`/profile`, formData, {
+        headers: { "Content-Type": "multipart/form-data", charset: "utf-8" },
+      });
+      if (res.data) {
+        alert(res.data.msg);
+        return res;
+      } else {
+        alert(res.data.msg);
+      }
+    } catch (err) {
+      alert("전송 실패 : " + err);
+    }
+  };
+
   const handlePost = (e) => {
     const formData = new FormData();
     formData.append("file", e.target.files[0]);
-
-    return instance
-      .post("/profile", formData)
-      .then((res) => {
-        console.log(res);
-        // setLogin({
-        //   username: login.username,
-        //   password: login.password,
-        //   token: login.token,
-        //   profile: e.tartget.files[0],
-        //   result: login.result,
-        // }); // post하고 나면 menu, modal이 바뀌어야하는데 이렇게 바꿔야하지 않나?
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    // return instance
+    //   .post("/profile", formData)
+    //   .then((res) => {
+    //     console.log(res);
+    //     // setLogin({
+    //     //   username: login.username,
+    //     //   password: login.password,
+    //     //   token: login.token,
+    //     //   profile: e.tartget.files[0],
+    //     //   result: login.result,
+    //     // }); // post하고 나면 menu, modal이 바뀌어야하는데 이렇게 바꿔야하지 않나?
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   });
+    postUserImage(username, formData);
   };
 
   const onUploadImageButtonClick = useCallback(() => {
@@ -44,6 +60,8 @@ export default function Upload(props) {
         accept="image/*"
         ref={inputRef}
         onChange={(e) => handlePost(e)}
+        name="file"
+        key="file"
       />
       <img
         className="profile__edit"
