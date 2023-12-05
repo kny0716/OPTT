@@ -159,6 +159,7 @@ exports.result = (req, res) => {
 
 // 총 사용자 수 불러오기
 exports.total = (req, res) => {
+  const { username } = req.body;
   connection.query(
     "SELECT total_users FROM stats",
     function (error, results, fields) {
@@ -175,20 +176,19 @@ exports.total = (req, res) => {
 // 댓글 불러오기
 exports.list = (req, res) => {
   const username = req.body;
-  connection.query(
-    "SELECT * FROM comments LIMIT 10",
-    function (error, results, fields) {
-      if (error) throw error;
-      if (results.length > 0) {
-        console.log("시작222");
-        res.send({ msg: "불러오기 성공", lists: results });
-        res.end();
-      } else {
-        res.send({ msg: "불러오기 실패", lists: results });
-        res.end();
-      }
+  console.log("시작");
+  connection.query("SELECT * FROM comments", function (error, results, fields) {
+    if (error) throw error;
+    console.log(results);
+    if (results.length > 0) {
+      console.log("시작222");
+      res.send({ msg: "불러오기 성공", lists: results });
+      res.end();
+    } else {
+      res.send({ msg: "불러오기 실패", lists: results });
+      res.end();
     }
-  );
+  });
 };
 
 // 댓글 쓰기 - 시간은 나중에
@@ -211,7 +211,7 @@ exports.create = (req, res) => {
 exports.update = (req, res) => {
   const { username, comment_id, comment } = req.body;
   connection.query(
-    "UPDATE comments SET comment=? WHERE username=?, comment_id=?",
+    "UPDATE comments SET comment=? WHERE username=? AND comment_id=?",
     [comment, username, comment_id],
     function (error, results, fields) {
       if (error) {
@@ -247,7 +247,7 @@ exports.delete = (req, res) => {
 exports.like = (req, res) => {
   const { comment_id, likes } = req.body;
   connection.query(
-    "UPDATE comments SET likes=?+1 WHERE=?",
+    "UPDATE comments SET likes=?+1 WHERE comment_id=?",
     [likes, comment_id],
     function (error, results, fields) {
       if (error) {
@@ -265,7 +265,7 @@ exports.like = (req, res) => {
 exports.unlike = (req, res) => {
   const { comment_id, likes } = req.body;
   connection.query(
-    "UPDATE comments SET likes=?-1 WHERE=?",
+    "UPDATE comments SET likes=?-1 WHERE comment_id= ?",
     [likes, comment_id],
     function (error, results, fields) {
       if (error) {
