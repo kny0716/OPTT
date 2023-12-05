@@ -2,7 +2,7 @@ var mysql = require("mysql");
 // var ejs = require("ejs");
 
 var connection = mysql.createConnection({
-  host: "localhost",
+  host: "127.0.0.1",
   user: "root",
   password: "ckdmsdn330!!",
   database: "optt",
