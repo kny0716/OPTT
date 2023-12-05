@@ -1,5 +1,4 @@
 var mysql = require("mysql");
-var ejs = require("ejs");
 
 var connection = mysql.createConnection({
   host: "localhost",
@@ -119,9 +118,14 @@ exports.user = (req, res) => {
 
 // 프로필 업로드
 exports.profile = (req, res, next) => {
+  console.log("시작");
   const { username } = req.body;
   const file = req.file;
   console.log(file);
+  if (file) {
+    res.send({ msg: "프로필 업로드 성공", url: file.filename });
+    res.end();
+  }
 };
 
 // 설문조사 결과
