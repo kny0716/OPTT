@@ -74,9 +74,27 @@ export default function WrapComments() {
   }
 
   async function deleteComment(comment_id) {
-    console.log(comment_id);
     await instance.post("/comment/delete", {
       comment_id: comment_id,
+    });
+    getCommentsData();
+  }
+
+  async function postLike(username, comment_id, likes) {
+    const response = await instance.post("/like", {
+      username: username,
+      comment_id: comment_id,
+      likes: likes,
+    });
+    console.log(response);
+    getCommentsData();
+  }
+
+  async function deleteLike(username, comment_id, likes) {
+    instance.delete("/unlike", {
+      username: username,
+      comment_id: comment_id,
+      likes: likes,
     });
     getCommentsData();
   }
@@ -92,19 +110,25 @@ export default function WrapComments() {
           commentList={commentList}
           editComment={editComment}
           deleteComment={deleteComment}
+          postLike={postLike}
+          deleteLike={deleteLike}
         ></CommentList>
       </div>
       <div className="box-inp-cmt">
-        <input
-          type="text"
-          placeholder="댓글 달기..."
-          value={input}
-          onChange={inputChange}
-          onKeyDown={(e) => (e.key === "Enter" ? addComment() : null)}
-        />
-        <button className="btn-submit" disabled="" onClick={addComment}>
-          게시
-        </button>
+        {login.username !== "" && (
+          <div className="comment__input">
+            <input
+              type="text"
+              placeholder="댓글 달기..."
+              value={input}
+              onChange={inputChange}
+              onKeyDown={(e) => (e.key === "Enter" ? addComment() : null)}
+            />
+            <button className="btn-submit" disabled="" onClick={addComment}>
+              게시
+            </button>
+          </div>
+        )}
       </div>
     </>
   );

@@ -81,15 +81,11 @@ export default function Login() {
           password: password,
           token: res.data.results.token,
           profile: res.data.results.profile,
+          result: res.data.results.result,
         });
-        console.log(res.data.results.token);
-        console.log(res.data.results.profile);
-        console.log(res, "userData");
       });
     };
     getProfileData();
-    console.log(login.token, "token");
-    console.log(login.profile, "profile");
   };
 
   return (

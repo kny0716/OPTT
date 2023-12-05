@@ -3,13 +3,19 @@
   display: flex;
   justify-content: center;
   text-align: center;
+  height: 100vh;
 
   .loading-component {
-    width: 600px;
-    height: 360px;
+    // width: 1000px;
+    // height: 360px;
+    // display: inline-block;
+    text-align: center;
 
     margin: 250px 0 0 0;
-
+    .loadig-img {
+      // width: 30rem;
+      // height: 15rem;
+    }
     @include mobile {
       width: 250px;
       height: 100px;

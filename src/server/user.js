@@ -148,6 +148,7 @@ exports.result = (req, res) => {
 
 // 총 사용자 수 불러오기
 exports.total = (req, res) => {
+  const { username } = req.body;
   connection.query(
     "SELECT total_users FROM stats",
     function (error, results, fields) {
@@ -235,7 +236,7 @@ exports.delete = (req, res) => {
 exports.like = (req, res) => {
   const { comment_id, likes } = req.body;
   connection.query(
-    "UPDATE comments SET likes=?+1 WHERE=?",
+    "UPDATE comments SET likes=?+1 WHERE comment_id=?",
     [likes, comment_id],
     function (error, results, fields) {
       if (error) {
@@ -253,7 +254,7 @@ exports.like = (req, res) => {
 exports.unlike = (req, res) => {
   const { comment_id, likes } = req.body;
   connection.query(
-    "UPDATE comments SET likes=?-1 WHERE=?",
+    "UPDATE comments SET likes=?-1 WHERE comment_id= ?",
     [likes, comment_id],
     function (error, results, fields) {
       if (error) {

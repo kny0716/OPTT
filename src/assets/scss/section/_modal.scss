@@ -17,6 +17,9 @@
   border-radius: 16px;
   background-color: white;
 
+  // url 인식 못함
+  background-image: url(`${process.env.PUBLIC_URL}/img/modal_background.svg`);
+
   position: fixed;
   display: flex;
   flex-direction: column;
@@ -52,9 +55,6 @@
 }
 
 .contents__btn {
-  padding: 0 0 0 16px;
-}
-.contents__logout {
   padding: 0 0 0 16px;
   border: 0;
   background-color: transparent;

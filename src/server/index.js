@@ -26,7 +26,7 @@ app.post("/user", user.user);
 app.post("/user/result", user.result);
 
 // stats
-app.get("/stats", user.total);
+app.post("/stats", user.total);
 
 // comments
 app.post("/comments", user.list);

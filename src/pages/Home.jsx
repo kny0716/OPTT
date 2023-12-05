@@ -3,6 +3,7 @@ import Main from "../components/section/Main";
 
 const Home = () => {
   const [isListHover, setIsListHover] = useState(false);
+
   return (
     <Main>
       <div id="main__page">
