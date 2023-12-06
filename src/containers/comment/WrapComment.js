@@ -35,7 +35,6 @@ export default function WrapComments() {
     const getData = () => {
       commentsdata.then((res) => {
         setCommentList(res.data.lists);
-        console.log(res.data.lists);
       });
     };
     getData();
@@ -86,7 +85,6 @@ export default function WrapComments() {
       comment_id: comment_id,
       likes: likes,
     });
-    console.log(response);
     getCommentsData();
   }
 
@@ -105,8 +103,8 @@ export default function WrapComments() {
 
   return (
     <>
-      <div className="comment__input__container">
-        {login.username !== "" && (
+      {login.username !== "" && (
+        <div className="comment__input__container">
           <div className="comment__input">
             <p>댓글</p>
             <input
@@ -121,9 +119,10 @@ export default function WrapComments() {
               </button>
             </div>
           </div>
-        )}
-        <div className="comment__input__line"></div>
-      </div>
+          <div className="comment__input__line"></div>
+        </div>
+      )}
+      {login.username === "" && <div id="guest__comment__title">댓글</div>}
       <div className="comment__list__container">
         <CommentList
           commentList={commentList}

@@ -65,27 +65,28 @@ export default function Comment({
   return (
     <li id={comment_id}>
       <div className="comment__form">
+        <div className="comment__line"></div>
         <div className="comment__title">
           <div className="comment__profile"></div>
           <div className="comment__title__contents">
             <p className="username">{username}</p>
             <p className="date">{createdAt}</p>
           </div>
+          {login.username === username && (
+            <div className="comments__change__contents">
+              <button className="edit__btn" onClick={handleEditButtonClick}>
+                수정
+              </button>
+              <button className="delete__btn" onClick={handleDeleteButtonClick}>
+                삭제
+              </button>
+            </div>
+          )}
         </div>
         <div className="comment__contents__container">
           <div className="comment">{comment}</div>
           {isEditing && editInput}
         </div>
-        {login.username === username && (
-          <div>
-            <button className="edit__btn" onClick={handleEditButtonClick}>
-              수정
-            </button>
-            <button className="delete__btn" onClick={handleDeleteButtonClick}>
-              삭제
-            </button>
-          </div>
-        )}
         <div className="comment__like__container">
           {isLiked ? (
             <img

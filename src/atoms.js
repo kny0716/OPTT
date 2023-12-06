@@ -28,3 +28,9 @@ export const commentListState = atom({
   default: [],
   effects_UNSTABLE: [persistAtom],
 });
+
+export const guestState = atom({
+  key: "guestState",
+  default: { result: "" },
+  effects_UNSTABLE: [persistAtom],
+});

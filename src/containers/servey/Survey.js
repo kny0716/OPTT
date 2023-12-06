@@ -3,7 +3,7 @@ import SurveyForm from "../../components/survey/SurveyForm";
 import Loading from "../../components/common/Loding";
 import { useNavigate } from "react-router-dom";
 import instance from "../../lib/axios";
-import { loginState } from "../../atoms";
+import { loginState, guestState } from "../../atoms";
 import { useRecoilState } from "recoil";
 
 const ott = ["넷플릭스", "티빙", "쿠팡플레이", "디즈니플러스", "웨이브"];
@@ -96,6 +96,7 @@ const contents = [
 
 export default function Survey() {
   const [login, setLogin] = useRecoilState(loginState);
+  const [guest, setGuest] = useRecoilState(guestState);
 
   const [question_number, set_question_number] = useState(0);
   const [survey_result, set_survey_result] = useState([0, 0, 0, 0, 0]);
@@ -114,6 +115,8 @@ export default function Survey() {
       );
       if (login.token === 1) {
         setResult(login.username, login.password, survey_result);
+      } else {
+        setGuest({ result: findResult(survey_result, ott) });
       }
       setLoading(true);
       setTimeout(() => {
@@ -140,6 +143,8 @@ export default function Survey() {
       );
       if (login.token === 1) {
         setResult(login.username, login.password, survey_result);
+      } else {
+        setGuest({ result: findResult(survey_result, ott) });
       }
       setLoading(true);
       setTimeout(() => {

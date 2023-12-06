@@ -32,7 +32,6 @@
   }
   .result__explain__form {
     width: 770px;
-    margin: 0 0 0 100px;
     h1 {
       font-size: 2.25rem;
       color: #080635;
@@ -63,8 +62,16 @@
   }
 }
 
+#guest__comment__title {
+  width: 770px;
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 70px 0 10px 0;
+}
+
 .comment__input__container {
   width: 770px;
+  margin: 90px 0 0 0;
   p {
     font-size: 1.5rem;
     font-weight: 700;
@@ -90,14 +97,8 @@
       color: #080635;
       font-size: 0.875rem;
       font-weight: 700;
-      margin: 15px 0 15px 0;
+      margin: 15px 0 0 0;
     }
-  }
-
-  .comment__input__line {
-    width: 100%;
-    height: 2px;
-    background: #f2f2f2;
   }
 }
 
@@ -105,6 +106,7 @@
   width: 770px;
   display: flex;
   flex-direction: row;
+  padding: 0 0 50px 0;
   .comment__list {
     width: 770px;
   }
@@ -112,6 +114,12 @@
     width: 100%;
     display: flex;
     flex-direction: column;
+    .comment__line {
+      width: 100%;
+      height: 2px;
+      background: #f2f2f2;
+      margin: 15px 0 20px 0;
+    }
 
     .comment__title {
       width: 100%;
@@ -125,7 +133,7 @@
       }
       .comment__title__contents {
         height: 50px;
-        width: 500px;
+        width: 680px;
         display: flex;
         flex-direction: column;
         padding: 8px 0 0 8px;
@@ -138,6 +146,13 @@
           font-size: 0.625rem;
           color: rgba($color: #080635, $alpha: 0.5);
         }
+      }
+      .comments__change__contents {
+        width: 20px;
+        height: 20px;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
       }
     }
   }
