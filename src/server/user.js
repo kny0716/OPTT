@@ -1,10 +1,9 @@
 var mysql = require("mysql");
-var ejs = require("ejs");
 
 var connection = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "nabong0716!",
+  password: "ckdmsdn330!!",
   database: "optt",
 });
 
@@ -29,7 +28,11 @@ exports.login = (req, res) => {
         connection.query("UPDATE user SET token = 1 WHERE username = ?", [
           username,
         ]);
-        res.send({ msg: "로그인 성공", token: 1 }); // 이거 그냥 token: results[0].token 이렇게 되어있길래 1로 잠시 수정했어
+        res.send({
+          msg: "로그인 성공",
+          token: results[0].token,
+          result: results[0],
+        });
         res.end();
       } else {
         res.send({ msg: "로그인 실패", token: results[0].token });
@@ -95,7 +98,7 @@ exports.logout = (req, res) => {
 exports.user = (req, res) => {
   const { username, password } = req.body;
   connection.query(
-    "SELECT * FROM user WHERE username = ? AND password = ?", // 여기서 자꾸 문법 오류나서 , -> AND로 바꿨어
+    "SELECT * FROM user WHERE username = ? AND password = ?",
     [username, password],
     function (error, results, fields) {
       if (error) throw error;
@@ -111,6 +114,18 @@ exports.user = (req, res) => {
       }
     }
   );
+};
+
+// 프로필 업로드
+exports.profile = (req, res, next) => {
+  console.log("시작");
+  const { username } = req.body;
+  const file = req.file;
+  console.log(file);
+  if (file) {
+    res.send({ msg: "프로필 업로드 성공", url: file.filename });
+    res.end();
+  }
 };
 
 // 설문조사 결과
@@ -140,7 +155,7 @@ exports.result = (req, res) => {
       }
     );
   } else {
-    connection.query("UPDATE stats SET total_users+=1");
+    connection.query("UPDATE stats SET total_users=total_users+1");
     res.send({ msg: "비로그인 사용자 +1" });
     res.end();
   }

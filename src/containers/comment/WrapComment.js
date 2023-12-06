@@ -24,6 +24,7 @@ export default function WrapComments() {
       const response = await instance.post("/comments", {
         username: login.username,
       });
+      console.log(response);
       return response;
     } catch (error) {
       console.error(error);
