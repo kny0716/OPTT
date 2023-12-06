@@ -6,7 +6,8 @@ import { useRecoilState } from "recoil";
 // 로그인 token은 데베에서 끌고 온거라서 잘 넘어와 한 번 해봐
 const Menu = ({ openModal }) => {
   const [login, setLogin] = useRecoilState(loginState);
-
+  const profile_img =
+    login.profile === null ? "/img/profile.svg" : login.profile;
   return (
     <>
       <a href="/" className="header__logo">
@@ -17,7 +18,7 @@ const Menu = ({ openModal }) => {
           <ul>
             <li>
               <img
-                src={login.profile}
+                src={profile_img}
                 className="profile_img"
                 alt="profile_img"
               />

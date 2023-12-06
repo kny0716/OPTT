@@ -5,7 +5,7 @@ import { loginState } from "../../atoms";
 
 export default function Upload(props) {
   const inputRef = useRef(null);
-  const userImage = props.img;
+  const user_image = props.img;
   const username = props.username;
 
   const postUserImage = async (account, formData) => {
@@ -54,7 +54,7 @@ export default function Upload(props) {
 
   return (
     <>
-      <img className="profile__img" src={userImage} alt="profile_img" />
+      <img className="profile__img" src={user_image} alt="profile_img" />
       <input
         type="file"
         accept="image/*"

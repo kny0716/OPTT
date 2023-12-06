@@ -54,6 +54,7 @@ export default function Modal({ close }) {
       logout={logout}
       resultClick={resultClick}
       profile={login.profile}
+      username={login.username}
     />
   );
 }
