@@ -44,7 +44,7 @@ exports.login = (req, res) => {
   );
 };
 
-// 소셜 로그인
+// 소셜 로그인 - 카카오
 app.get("/api/auth/kakao", async (req, res) => {
   const code = req.query.code;
   try {
@@ -186,6 +186,21 @@ exports.profile = (req, res, next) => {
   const { username } = req.body;
   const file = req.file;
   console.log(file);
+  if (file) {
+    connection.query(
+      "UPDATE user SET profile=? WHERE username=?",
+      [file.filename, username],
+      function (error, results, fields) {
+        if (error) {
+          res.send({ msg: "프로필 업로드 실패" });
+          res.end();
+        } else {
+          res.send({ msg: "프로필 업로드 성공", url: file.filename });
+          res.end();
+        }
+      }
+    );
+  }
 };
 
 // 설문조사 결과
@@ -197,7 +212,7 @@ exports.result = (req, res) => {
       [username],
       function (error, results, fields) {
         if (results.length <= 0) {
-          connection.query("UPDATE stats SET total_users+=1");
+          connection.query("UPDATE stats SET total_users=total_users+1");
         }
         connection.query(
           "UPDATE user SET result=? WHERE username=?",
@@ -240,7 +255,7 @@ exports.total = (req, res) => {
 exports.list = (req, res) => {
   const username = req.body;
   connection.query(
-    "SELECT * FROM comments LIMIT 10",
+    "SELECT comments.*, user.profile FROM comments JOIN user ON comments.username = user.username ORDER BY comments.createdAt DESC LIMIT 10",
     function (error, results, fields) {
       if (error) throw error;
       if (results.length > 0) {
@@ -258,9 +273,10 @@ exports.list = (req, res) => {
 // 댓글 쓰기 - 시간은 나중에
 exports.create = (req, res) => {
   const { username, comment } = req.body;
+  const date = new Date();
   connection.query(
-    "INSERT INTO comments (comment, username) VALUES (?, ?)",
-    [comment, username],
+    "INSERT INTO comments (comment, username, createdAt, profile) VALUES (?, ?, ?, (SELECT profile FROM users WHERE username = ?))",
+    [comment, username, date],
     function (error, results, fields) {
       if (error) throw error;
       else {

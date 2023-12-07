@@ -12,24 +12,6 @@ const port = 8080;
 const app = express();
 module.exports = app;
 
-const upload = multer({
-  storage: multer.diskStorage({
-    filename(req, file, done) {
-      const randomID = uuid4();
-      const ext = path.extname(file.originalname);
-      const filename = randomID + ext;
-      done(null, filename);
-    },
-    destination(req, file, done) {
-      done(null, path.join(__dirname, "files"));
-    },
-  }),
-  limits: { fileSize: 1024 * 1024 },
-});
-
-const uploadMiddleware = upload.single("myFile"); // input의 name 속성이 myFile, formDate의 key
-app.use(uploadMiddleware);
-
 // app.use(cors({
 //   origin: 'https://your-client-domain.com', // 특정 도메인만 허용
 //   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
@@ -58,6 +40,21 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static(publicPath));
 app.use(passport.initialize()); // passport 초기화
 
+const upload = multer({
+  storage: multer.diskStorage({
+    filename(req, file, cb) {
+      const randomID = uuid4();
+      const ext = path.extname(file.originalname);
+      const filename = randomID + ext;
+      cb(null, filename);
+    },
+    destination(req, file, cb) {
+      cb(null, path.join(__dirname, "public/uploads"));
+    },
+  }),
+  limits: { fileSize: 10 * 1024 * 1024 }, // 10MB로 설정된 제한
+});
+
 // auth
 app.post("/login", user.login);
 app.post("/register", user.register);
@@ -66,7 +63,7 @@ app.post("/logout", user.logout);
 // user
 app.post("/user", cors(), user.user);
 app.post("/user/result", user.result);
-app.post("/profile", uploadMiddleware, user.profile);
+app.post("/profile", upload.single("file"), user.profile);
 
 // stats
 app.get("/stats", user.total);
