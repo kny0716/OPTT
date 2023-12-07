@@ -212,8 +212,9 @@ exports.result = (req, res) => {
       "SELECT result FROM user WHERE username=?",
       [username],
       function (error, results, fields) {
+        console.log(results)
         if (results.length <= 0) {
-          connection.query("UPDATE stats SET result=? WHERE username=?", [result, username]);
+          connection.query("INSERT INTO stats (result) VALUES (?) WHERE username=?", [result, username]);
         }
         connection.query(
           "UPDATE user SET result=? WHERE username=?",
