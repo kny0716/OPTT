@@ -213,7 +213,8 @@ exports.result = (req, res) => {
       [username],
       function (error, results, fields) { 
         console.log(results)
-        if (results.length <= 0) {
+        if (results.result.length <= 0) {
+          console.log('result', results)
           connection.query("INSERT INTO stats (result) VALUES (?)", [result]);
         }
         connection.query(
