@@ -327,6 +327,7 @@ exports.delete = (req, res) => {
 // 좋아요
 exports.like = (req, res) => {
   const { username, comment_id, likes } = req.body;
+  console.log(username, comment_id, likes)
   connection.query(
     "UPDATE comments SET likes=?+1 WHERE=?",
     [likes, comment_id],
@@ -345,6 +346,7 @@ exports.like = (req, res) => {
 // 좋아요 취소
 exports.unlike = (req, res) => {
   const { username, comment_id, likes } = req.body;
+  console.log(username, comment_id, likes, '좋아요 취소')
   connection.query(
     "UPDATE comments SET likes=?-1 WHERE=?",
     [likes, comment_id],
