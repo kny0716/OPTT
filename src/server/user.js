@@ -183,7 +183,7 @@ exports.user = (req, res) => {
 
 // 프로필 업로드
 exports.profile = (req, res, next) => {
-  const { username } = req.body;
+  const { username } = req.header('username');
   const file = req.file;
   console.log(file);
   if (file) {
