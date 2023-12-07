@@ -328,9 +328,11 @@ exports.delete = (req, res) => {
 exports.like = (req, res) => {
   const { username, comment_id, likes } = req.body;
   console.log(username, comment_id, likes)
+  console.log(typeof(likes))
+  const like1 = 1;
   connection.query(
-    "UPDATE comments SET likes=?+1 WHERE=?",
-    [likes, comment_id],
+    "UPDATE comments SET likes=?+? WHERE=?",
+    [likes, like1, comment_id],
     function (error, results, fields) {
       if (error) {
         res.send({ msg: "다시 시도해주세요" });
@@ -347,9 +349,10 @@ exports.like = (req, res) => {
 exports.unlike = (req, res) => {
   const { username, comment_id, likes } = req.body;
   console.log(username, comment_id, likes, '좋아요 취소')
+  const unlike1 = -1;
   connection.query(
-    "UPDATE comments SET likes=?-1 WHERE=?",
-    [likes, comment_id],
+    "UPDATE comments SET likes=?+? WHERE=?",
+    [likes, unlike1, comment_id],
     function (error, results, fields) {
       if (error) {
         res.send({ msg: "다시 시도해주세요" });
