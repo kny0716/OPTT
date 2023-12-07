@@ -275,7 +275,7 @@ exports.create = (req, res) => {
   const { username, comment } = req.body;
   const date = new Date();
   connection.query(
-    "INSERT INTO comments (comment, username, createdAt, profile) SELECT ?, u.username, ?, u.profile FROM users u  WHERE u.username = ?",
+    "INSERT INTO comments (comment, username, createdAt, profile) SELECT ?, u.username, ?, u.profile FROM user u  WHERE u.username = ?",
     [comment, date, username],
     function (error, results, fields) {
       if (error) throw error;
