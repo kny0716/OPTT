@@ -73,7 +73,7 @@ app.get("/stats", user.total);
 app.post("/comments", user.list);
 app.post("/comment/create", user.create);
 app.post("/comment/update", user.update);
-app.delete("/comment/delete", user.delete);
+app.post("/comment/delete", user.delete);
 
 // likes
 app.post("/like", user.like);
