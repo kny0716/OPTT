@@ -195,6 +195,7 @@ exports.profile = (req, res, next) => {
           res.send({ msg: "프로필 업로드 실패" });
           res.end();
         } else {
+          console.log(file.filename, username)
           res.send({ msg: "프로필 업로드 성공", url: file.filename });
           res.end();
         }
