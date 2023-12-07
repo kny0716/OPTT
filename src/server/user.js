@@ -45,7 +45,7 @@ exports.login = (req, res) => {
 };
 
 // 소셜 로그인 - 카카오
-app.get("/api/auth/kakao", async (req, res) => {
+exports.kakao = async (req, res) => {
   const code = req.query.code;
   try {
     // Access token 가져오기
@@ -105,7 +105,7 @@ app.get("/api/auth/kakao", async (req, res) => {
     console.log(e);
     res.status(400).end("Sorry, Login Error!");
   }
-});
+};
 
 // 회원가입
 exports.register = (req, res) => {

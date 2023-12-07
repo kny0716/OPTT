@@ -59,6 +59,7 @@ const upload = multer({
 app.post("/login", user.login);
 app.post("/register", user.register);
 app.post("/logout", user.logout);
+app.get("/api/auth/kakao", user.kakao);
 
 // user
 app.post("/user", cors(), user.user);
