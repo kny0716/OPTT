@@ -45,6 +45,7 @@ exports.login = (req, res) => {
 // 회원가입
 exports.register = (req, res) => {
   const { username, password } = req.body;
+  const profile = " " + username;
   connection.query(
     "SELECT * FROM user WHERE username = ? ",
     [username],
@@ -55,8 +56,8 @@ exports.register = (req, res) => {
         res.end();
       } else {
         connection.query(
-          "INSERT INTO user (username, password) VALUES(?,?)",
-          [username, password],
+          "INSERT INTO user (username, password, profile) VALUES(?,?,?)",
+          [username, password, profile],
           function (error) {
             if (error) {
               res.send({ msg: "회원가입 실패!" });
@@ -118,13 +119,23 @@ exports.user = (req, res) => {
 
 // 프로필 업로드
 exports.profile = (req, res, next) => {
-  console.log("시작");
   const { username } = req.body;
   const file = req.file;
   console.log(file);
   if (file) {
-    res.send({ msg: "프로필 업로드 성공", url: file.filename });
-    res.end();
+    connection.query(
+      "UPDATE user SET profile=? WHERE username=?",
+      [file.filename, username],
+      function (error, results, fields) {
+        if (error) {
+          res.send({ msg: "프로필 업로드 실패" });
+          res.end();
+        } else {
+          res.send({ msg: "프로필 업로드 성공", url: file.filename });
+          res.end();
+        }
+      }
+    );
   }
 };
 
@@ -180,19 +191,19 @@ exports.total = (req, res) => {
 // 댓글 불러오기
 exports.list = (req, res) => {
   const username = req.body;
-  console.log("시작");
-  connection.query("SELECT * FROM comments", function (error, results, fields) {
-    if (error) throw error;
-    console.log(results);
-    if (results.length > 0) {
-      console.log("시작222");
-      res.send({ msg: "불러오기 성공", lists: results });
-      res.end();
-    } else {
-      res.send({ msg: "불러오기 실패", lists: results });
-      res.end();
+  connection.query(
+    "SELECT * FROM comments ORDER BY createdAt DESC LIMIT 10",
+    function (error, results, fields) {
+      if (error) throw error;
+      if (results.length > 0) {
+        res.send({ msg: "불러오기 성공", lists: results });
+        res.end();
+      } else {
+        res.send({ msg: "불러오기 실패", lists: results });
+        res.end();
+      }
     }
-  });
+  );
 };
 
 // 댓글 쓰기 - 시간은 나중에
