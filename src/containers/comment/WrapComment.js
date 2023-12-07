@@ -24,7 +24,6 @@ export default function WrapComments() {
       const response = await instance.post("/comments", {
         username: login.username,
       });
-      console.log(response);
       return response;
     } catch (error) {
       console.error(error);
@@ -81,6 +80,7 @@ export default function WrapComments() {
   }
 
   async function postLike(username, comment_id, likes) {
+    console.log(username, comment_id, likes);
     const response = await instance.post("/like", {
       username: username,
       comment_id: comment_id,
@@ -90,7 +90,7 @@ export default function WrapComments() {
   }
 
   async function deleteLike(username, comment_id, likes) {
-    instance.delete("/unlike", {
+    await instance.post("/unlike", {
       username: username,
       comment_id: comment_id,
       likes: likes,

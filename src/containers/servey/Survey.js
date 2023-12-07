@@ -116,6 +116,7 @@ export default function Survey() {
       if (login.token === 1) {
         setResult(login.username, login.password, survey_result);
       } else {
+        setResult(login.username, login.password, survey_result);
         setGuest({ result: findResult(survey_result, ott) });
       }
       setLoading(true);
@@ -144,6 +145,7 @@ export default function Survey() {
       if (login.token === 1) {
         setResult(login.username, login.password, survey_result);
       } else {
+        setResult(login.username, login.password, survey_result);
         setGuest({ result: findResult(survey_result, ott) });
       }
       setLoading(true);
@@ -171,10 +173,12 @@ export default function Survey() {
     return ott[maxIndex];
   }
 
-  // async await로 해야하나?
   async function setResult(username, password, result) {
     const result_ott = findResult(result, ott);
-    console.log(result_ott);
+    setLogin({
+      ...login,
+      result: result_ott,
+    });
     await instance
       .post("/user/result", {
         username: username,

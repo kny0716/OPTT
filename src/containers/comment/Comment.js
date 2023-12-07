@@ -1,11 +1,10 @@
-// import CommentForm from "../../components/auth/CommentForm";
 import { useRecoilState } from "recoil";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { loginState } from "../../atoms";
 import instance from "../../lib/axios";
 
 export default function Comment({
-  comment: { comment, comment_id, createdAt, likes, username },
+  comment: { comment, comment_id, createdAt, likes, username, profile },
   isEditing,
   setSelectedIndex,
   editComment,
@@ -20,7 +19,9 @@ export default function Comment({
     editComment(comment_id, editValue);
     setSelectedIndex(0);
   };
-
+  const serverPath = instance.defaults.baseURL + "uploads/";
+  const profile_URL = serverPath + profile;
+  const date = createdAt.split("T")[0];
   const editInput = (
     <div className="comment__edit__input">
       <input
@@ -54,7 +55,6 @@ export default function Comment({
   const handleLikeButtonClick = () => {
     setIsLiked(true);
     postLike(username, comment_id, likes);
-    console.log(likes);
   };
 
   const handleUnlikeButtonClick = () => {
@@ -67,31 +67,36 @@ export default function Comment({
       <div className="comment__form">
         <div className="comment__line"></div>
         <div className="comment__title">
-          <div className="comment__profile"></div>
+          <img className="comment__profile" src={profile_URL}></img>
           <div className="comment__title__contents">
             <p className="username">{username}</p>
-            <p className="date">{createdAt}</p>
+            <p className="date">{date}</p>
           </div>
           {login.username === username && (
             <div className="comments__change__contents">
-              <button className="edit__btn" onClick={handleEditButtonClick}>
-                수정
-              </button>
-              <button className="delete__btn" onClick={handleDeleteButtonClick}>
-                삭제
-              </button>
+              <img
+                className="edit__btn"
+                src="/img/result/edit_button.svg"
+                onClick={handleEditButtonClick}
+              ></img>
+              <img
+                className="delete__btn"
+                src="/img/result/delete_button.svg"
+                onClick={handleDeleteButtonClick}
+              ></img>
             </div>
           )}
         </div>
         <div className="comment__contents__container">
-          <div className="comment">{comment}</div>
-          {isEditing && editInput}
+          {isEditing ? editInput : <div className="comment">{comment}</div>}
+          {/* <div className="comment">{comment}</div>
+          {isEditing && editInput} */}
         </div>
         <div className="comment__like__container">
           {isLiked ? (
             <img
               className="like__btn"
-              src="/img/result/like_button.svg"
+              src="/img/result/unlike_button.svg"
               onClick={handleUnlikeButtonClick}
             />
           ) : (
@@ -101,7 +106,7 @@ export default function Comment({
               onClick={handleLikeButtonClick}
             />
           )}
-          <p className="like"> 좋아요 수 {likes}</p>
+          <p className="like">{likes}</p>
         </div>
       </div>
     </li>

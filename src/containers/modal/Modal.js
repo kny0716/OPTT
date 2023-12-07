@@ -10,7 +10,6 @@ export default function Modal({ close }) {
   // logoutUser(login.username, login.password);
   const logout = () => {
     logoutUser(login.username, login.password);
-    console.log("로그아웃");
     setLogin({
       ...login,
       username: "",
@@ -23,7 +22,6 @@ export default function Modal({ close }) {
   };
 
   const resultClick = () => {
-    console.log(login.result);
     if (login.result === null) {
       alert("저장된 설문 결과가 없습니다.");
     } else {
@@ -31,21 +29,11 @@ export default function Modal({ close }) {
     }
   };
 
-  // 응답이 오기는 하는데 응답을 활용하지는 않아서 일단은 이렇게...
   async function logoutUser(username, password) {
     await instance.post("/logout", {
       username: username,
       password: password,
     });
-    // try {
-    //   const response = await instance.post("/logout", {
-    //     username: username,
-    //     password: password,
-    //   });
-    //   return response;
-    // } catch (error) {
-    //   console.error(error);
-    // }
   }
 
   return (

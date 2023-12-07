@@ -7,7 +7,7 @@ export default function ModalForm({
   profile,
   username,
 }) {
-  if (profile === null) {
+  if (profile === "null") {
     profile = "/img/profile.svg";
   }
   const image_path = "/img/modal_background.svg";

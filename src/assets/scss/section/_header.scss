@@ -62,6 +62,8 @@
   .profile_img {
     width: 35px;
     height: 35px;
+    border-radius: 100%;
+    object-fit: contain;
   }
 
   .modal_btn {
