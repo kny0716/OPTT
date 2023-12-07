@@ -1,31 +1,43 @@
-// import CommentForm from "../../components/auth/CommentForm";
 import { useRecoilState } from "recoil";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { loginState } from "../../atoms";
 import instance from "../../lib/axios";
 
 export default function Comment({
-  comment: { comment, comment_id, createdAt, likes, username },
+  comment: { comment, comment_id, createdAt, likes, username, profile },
   isEditing,
   setSelectedIndex,
-  selectedIndex,
   editComment,
   deleteComment,
+  postLike,
+  deleteLike,
 }) {
   const [login] = useRecoilState(loginState);
   const [editValue, setEditValue] = useState(comment);
+  const [isLiked, setIsLiked] = useState(false);
   const handleEditInput = () => {
     editComment(comment_id, editValue);
     setSelectedIndex(0);
   };
-
+  const serverPath = instance.defaults.baseURL + "uploads/";
+  const profile_URL = serverPath + profile;
+  const date = createdAt.split("T")[0];
   const editInput = (
-    <input
-      type="text"
-      value={editValue}
-      onChange={(e) => setEditValue(e.target.value)}
-      onKeyDown={(e) => (e.key === "Enter" ? handleEditInput() : null)}
-    />
+    <div className="comment__edit__input">
+      <input
+        type="text"
+        value={editValue}
+        onChange={(e) => setEditValue(e.target.value)}
+        onKeyDown={(e) => (e.key === "Enter" ? handleEditInput() : null)}
+      />
+      <button
+        className="submit__edit__btn"
+        disabled=""
+        onClick={handleEditInput}
+      >
+        등록
+      </button>
+    </div>
   );
 
   const handleEditButtonClick = () => {
@@ -40,128 +52,63 @@ export default function Comment({
     deleteComment(comment_id);
   };
 
+  const handleLikeButtonClick = () => {
+    setIsLiked(true);
+    postLike(username, comment_id, likes);
+  };
+
+  const handleUnlikeButtonClick = () => {
+    setIsLiked(false);
+    deleteLike(username, comment_id, likes);
+  };
+
   return (
     <li id={comment_id}>
-      <span className="comment__form">
-        <span>{username}</span>
-        {isEditing ? editInput : <span>{comment}</span>}
-        <button className="edit__btn" onClick={handleEditButtonClick}>
-          수정
-        </button>
-        <button className="delete__btn" onClick={handleDeleteButtonClick}>
-          삭제
-        </button>
-      </span>
+      <div className="comment__form">
+        <div className="comment__line"></div>
+        <div className="comment__title">
+          <img className="comment__profile" src={profile_URL}></img>
+          <div className="comment__title__contents">
+            <p className="username">{username}</p>
+            <p className="date">{date}</p>
+          </div>
+          {login.username === username && (
+            <div className="comments__change__contents">
+              <img
+                className="edit__btn"
+                src="/img/result/edit_button.svg"
+                onClick={handleEditButtonClick}
+              ></img>
+              <img
+                className="delete__btn"
+                src="/img/result/delete_button.svg"
+                onClick={handleDeleteButtonClick}
+              ></img>
+            </div>
+          )}
+        </div>
+        <div className="comment__contents__container">
+          {isEditing ? editInput : <div className="comment">{comment}</div>}
+          {/* <div className="comment">{comment}</div>
+          {isEditing && editInput} */}
+        </div>
+        <div className="comment__like__container">
+          {isLiked ? (
+            <img
+              className="like__btn"
+              src="/img/result/unlike_button.svg"
+              onClick={handleUnlikeButtonClick}
+            />
+          ) : (
+            <img
+              className="like__btn"
+              src="/img/result/like_button.svg"
+              onClick={handleLikeButtonClick}
+            />
+          )}
+          <p className="like">{likes}</p>
+        </div>
+      </div>
     </li>
   );
 }
-
-// export default function Comment() {
-//   const [login, setLogin] = useRecoilState(loginState);
-//   const [comment, setComment] = useState("");
-//   const [comment_id, setComment_id] = useState(""); // 임시
-//   const [mycomment, setMycomment] = useState([]); // 임시
-//   const [comments, setComments] = useState([]); // 임시
-
-//   const commentChange = (e) => {
-//     setComment(e.target.value);
-//   };
-
-//   const handleSubmit = (e) => {
-//     submitComment(comment);
-//     setComment("");
-//   };
-
-//   async function submitComment(comment) {
-//     await instance.post("/comment/create", {
-//       username: login.username,
-//       comment: comment,
-//     });
-//   }
-
-//   // post로 수정?
-//   async function getComments() {
-//     try {
-//       const response = await instance.post("/comments");
-//       return response;
-//     } catch (error) {
-//       console.error(error);
-//     }
-//   }
-
-//   function getCommentsData() {
-//     const commentsdata = getComments();
-//     const getData = () => {
-//       commentsdata.then((res) => {
-//         setComments(res.data.comments);
-//       });
-//     };
-//     getData();
-//   }
-
-//   async function deleteComment() {
-//     await instance.delete("/comment/delete", {
-//       username: login.username,
-//       comment: comment,
-//     });
-//   }
-
-//   function updateComment() {
-//     // 수정 버튼을 클릭한 댓글의 id나 내용을 가져와 setComment해야함
-//     setComment(comment);
-//     submitNewComment(comment);
-//   }
-//   async function submitNewComment(comment) {
-//     // 응답으로 boolean이 오는데 사용해야하나?
-//     await instance.post("/comment/update", {
-//       username: login.username,
-//       comment_id: comment_id,
-//       comment: comment,
-//     });
-//     // try {
-//     //   const response = await instance.post("/comment/update", {
-//     //     username: login.username,
-//     //     comment_id: comment_id,
-//     //     comment: comment,
-//     //   });
-//     // } catch (error) {
-//     //   console.error(error);
-//     // }
-//   }
-
-//   async function postLike() {
-//     try {
-//       const response = await instance.post("/like", {
-//         username: login.username,
-//         comment_id: comment_id,
-//       });
-//     } catch (error) {
-//       console.error(error);
-//     }
-//   }
-
-//   async function deleteLike() {
-//     try {
-//       const response = await instance.delete("/unlike", {
-//         username: login.username,
-//         comment_id: comment_id,
-//       });
-//     } catch (error) {
-//       console.error(error);
-//     }
-//   }
-
-//   useEffect(() => {
-//     getCommentsData();
-//   }, []); // 여기에 comments 넣어도 되나?
-//   return (
-//     <CommentForm
-//       commentChange={commentChange}
-//       handleSubmit={handleSubmit}
-//       newcomment={comment}
-//       comments={comments}
-//       mycomment={comment_id}
-//       onClick={{ deleteComment, updateComment, postLike, deleteLike }}
-//     />
-//   );
-// }
