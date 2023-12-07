@@ -67,7 +67,7 @@ app.post("/user/result", user.result);
 app.post("/profile", upload.single("file"), user.profile);
 
 // stats
-app.get("/stats", user.total);
+app.post("/stats", user.total);
 
 // comments
 app.post("/comments", user.list);
