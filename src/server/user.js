@@ -1,5 +1,5 @@
 var mysql = require("mysql");
-// var ejs = require("ejs");
+var Axios = require("axios");
 
 var connection = mysql.createConnection({
   host: "database-1.c7l3lp7npccg.ap-northeast-2.rds.amazonaws.com",
@@ -43,6 +43,69 @@ exports.login = (req, res) => {
     }
   );
 };
+
+// 소셜 로그인
+app.get("/api/auth/kakao", async (req, res) => {
+  const code = req.query.code;
+  try {
+    // Access token 가져오기
+    const res1 = await Axios.post(
+      "https://kauth.kakao.com/oauth/token",
+      {},
+      {
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        params: {
+          grant_type: "authorization_code",
+          client_id: CONFIG.KAKAO.RESTAPIKEY,
+          code,
+          redirect_uri:
+            (CONFIG.PRODUCT ? "https://" : "http://") +
+            req.headers.host +
+            "/api/auth/kakao",
+        },
+      }
+    );
+
+    // Access token을 이용해 정보 가져오기
+    const res2 = await Axios.post(
+      "https://kapi.kakao.com/v2/user/me",
+      {},
+      {
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+          Authorization: "Bearer " + res1.data.access_token,
+        },
+      }
+    );
+    console.log(res2.data);
+
+    const data = res2.data;
+    const row = (
+      await db.query(
+        `select * from user where snsPrimaryKey=? and snsType="kakao"`,
+        [data.id]
+      )
+    )[0];
+    if (row) {
+      // 회원가입된 유저
+      req.session.userId = row.id;
+      req.session.save(() => {});
+      res.redirect("http://localhost:4100");
+      return;
+    }
+    res.redirect(
+      "http://localhost:4100/auth/signup?token=" +
+        (data.properties && data.properties.nickname
+          ? "&name=" + encodeURIComponent(data.properties.nickname)
+          : "")
+    );
+  } catch (e) {
+    console.log(e);
+    res.status(400).end("Sorry, Login Error!");
+  }
+});
 
 // 회원가입
 exports.register = (req, res) => {
