@@ -213,10 +213,10 @@ exports.result = (req, res) => {
       [username],
       function (error, results, fields) { 
         console.log(results)
-        if (results.result.length <= 0) {
+        if (!results.result) {
           console.log('result', results)
           connection.query("INSERT INTO stats (result) VALUES (?)", [result]);
-        }
+        } else {
         connection.query(
           "UPDATE user SET result=? WHERE username=?",
           [result, username],
@@ -230,7 +230,7 @@ exports.result = (req, res) => {
             }
           }
         );
-      }
+      }}
     );
   } else {
     connection.query("INSERT INTO stats (result) VALUES (?)", [result],
