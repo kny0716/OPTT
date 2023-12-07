@@ -329,11 +329,8 @@ exports.like = (req, res) => {
   const { username, comment_id, likes } = req.body;
   console.log(username, comment_id, likes)
   const like1 = likes+1;
-  console.log(like1)
-  console.log(like1+1)
-  console.log(typeof(like1))
   connection.query(
-    "UPDATE comments SET likes=? WHERE=?",
+    "UPDATE comments SET likes=? WHERE comment_id=?",
     [like1, comment_id],
     function (error, results, fields) {
       if (error) {
@@ -353,7 +350,7 @@ exports.unlike = (req, res) => {
   console.log(username, comment_id, likes, '좋아요 취소')
   const unlike1 = likes-1;
   connection.query(
-    "UPDATE comments SET likes=? WHERE=?",
+    "UPDATE comments SET likes=? WHERE comment_id=?",
     [unlike1, comment_id],
     function (error, results, fields) {
       if (error) {
