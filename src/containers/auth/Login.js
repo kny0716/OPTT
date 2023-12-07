@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { loginState } from "../../atoms";
 import { useNavigate } from "react-router-dom";
 import instance from "../../lib/axios";
+import e from "cors";
 
 export default function Login() {
   const [login, setLogin] = useRecoilState(loginState);
@@ -76,11 +77,15 @@ export default function Login() {
     const userdata = getUserData(username, password);
     const getProfileData = () => {
       userdata.then((res) => {
+        let serverPath = instance.defaults.baseURL + "uploads/";
+        if (res.data.results.profile === null) {
+          serverPath = "";
+        }
         setLogin({
           username: username,
           password: password,
           token: res.data.results.token,
-          profile: res.data.results.profile,
+          profile: `${serverPath}${res.data.results.profile}`,
           result: res.data.results.result,
         });
       });

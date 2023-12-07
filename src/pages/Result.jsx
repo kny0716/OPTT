@@ -1,23 +1,13 @@
 import React, { useState } from "react";
 import Main from "../components/section/Main";
-import Modal from "../components/common/ModalForm";
-import WrapComments from "../containers/comment/WrapComment";
+import Result from "../containers/result/Result";
 
-const Result = () => {
-  // const [isOpen, setIsOpen] = useState(false);
-  // const open = () => {
-  //   setIsOpen(true);
-  // };
-  // const close = () => {
-  //   setIsOpen(false);
-  // };
+const ResultPage = () => {
   return (
     <Main>
-      {/* <button onClick={open}>모달 열기</button>
-      {isOpen && <Modal close={close} />} */}
-      <WrapComments></WrapComments>
+      <Result />
     </Main>
   );
 };
 
-export default Result;
+export default ResultPage;

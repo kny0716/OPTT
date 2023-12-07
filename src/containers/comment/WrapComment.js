@@ -24,7 +24,6 @@ export default function WrapComments() {
       const response = await instance.post("/comments", {
         username: login.username,
       });
-      console.log(response);
       return response;
     } catch (error) {
       console.error(error);
@@ -36,7 +35,6 @@ export default function WrapComments() {
     const getData = () => {
       commentsdata.then((res) => {
         setCommentList(res.data.lists);
-        console.log(res.data.lists);
       });
     };
     getData();
@@ -82,17 +80,17 @@ export default function WrapComments() {
   }
 
   async function postLike(username, comment_id, likes) {
+    console.log(username, comment_id, likes);
     const response = await instance.post("/like", {
       username: username,
       comment_id: comment_id,
       likes: likes,
     });
-    console.log(response);
     getCommentsData();
   }
 
   async function deleteLike(username, comment_id, likes) {
-    instance.delete("/unlike", {
+    await instance.post("/unlike", {
       username: username,
       comment_id: comment_id,
       likes: likes,
@@ -106,7 +104,27 @@ export default function WrapComments() {
 
   return (
     <>
-      <div className="comment__wrap">
+      {login.username !== "" && (
+        <div className="comment__input__container">
+          <div className="comment__input">
+            <p>댓글</p>
+            <input
+              type="text"
+              value={input}
+              onChange={inputChange}
+              onKeyDown={(e) => (e.key === "Enter" ? addComment() : null)}
+            />
+            <div className="submit__btn__container">
+              <button className="submit__btn" disabled="" onClick={addComment}>
+                등록
+              </button>
+            </div>
+          </div>
+          <div className="comment__input__line"></div>
+        </div>
+      )}
+      {login.username === "" && <div id="guest__comment__title">댓글</div>}
+      <div className="comment__list__container">
         <CommentList
           commentList={commentList}
           editComment={editComment}
@@ -114,22 +132,6 @@ export default function WrapComments() {
           postLike={postLike}
           deleteLike={deleteLike}
         ></CommentList>
-      </div>
-      <div className="box-inp-cmt">
-        {login.username !== "" && (
-          <div className="comment__input">
-            <input
-              type="text"
-              placeholder="댓글 달기..."
-              value={input}
-              onChange={inputChange}
-              onKeyDown={(e) => (e.key === "Enter" ? addComment() : null)}
-            />
-            <button className="btn-submit" disabled="" onClick={addComment}>
-              게시
-            </button>
-          </div>
-        )}
       </div>
     </>
   );
