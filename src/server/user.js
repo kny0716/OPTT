@@ -329,6 +329,9 @@ exports.like = (req, res) => {
   const { username, comment_id, likes } = req.body;
   console.log(username, comment_id, likes)
   const like1 = likes+1;
+  console.log(like1)
+  console.log(like1+1)
+  console.log(typeof(like1))
   connection.query(
     "UPDATE comments SET likes=? WHERE=?",
     [like1, comment_id],
