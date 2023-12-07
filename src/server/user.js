@@ -213,7 +213,7 @@ exports.result = (req, res) => {
       [username],
       function (error, results, fields) {
         if (results.length <= 0) {
-          connection.query("UPDATE stats SET total_users=total_users+1");
+          connection.query("UPDATE stats SET result=? WHERE username=?", [result, username]);
         }
         connection.query(
           "UPDATE user SET result=? WHERE username=?",
@@ -231,16 +231,24 @@ exports.result = (req, res) => {
       }
     );
   } else {
-    connection.query("UPDATE stats SET total_users=total_users+1");
-    res.send({ msg: "비로그인 사용자 +1" });
-    res.end();
+    connection.query("INSERT INTO stats (result) VALUES (?)", [result],
+    function (error, results, fields) {
+      if (error) {
+        res.send({ msg: "결과 저장 실패" });
+        res.end();
+      } else {
+        res.send({ msg: "비로그인 사용자 +1" });
+        res.end();
+      }
+    }
+    );
   }
 };
 
 // 총 사용자 수 불러오기
 exports.total = (req, res) => {
   connection.query(
-    "SELECT total_users FROM stats",
+    "SELECT stats_id FROM stats",
     function (error, results, fields) {
       if (error) {
         res.send({ msg: "사용자 수를 불러오는데 실패" });
