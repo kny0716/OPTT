@@ -276,7 +276,7 @@ exports.create = (req, res) => {
   const { username, comment } = req.body;
   const date = new Date();
   connection.query(
-    "INSERT INTO comments (comment, username, createdAt) VALUES (?, ?, ?)",
+    "INSERT INTO comments (comment, createdAt, username) VALUES (?, ?, ?)",
     [comment, date, username],
     function (error, results, fields) {
       if (error) throw error;
