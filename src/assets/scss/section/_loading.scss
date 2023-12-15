@@ -27,7 +27,8 @@
 
     p {
       font-size: 3rem;
-      font-weight: 600;
+      font-family: "NPSfont_bold";
+      color: #080635;
 
       @include mobile {
         font-size: 1.7rem;
