@@ -1,10 +1,12 @@
 var mysql = require("mysql");
+var Axios = require("axios");
 
 var connection = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: "nabong0716!",
+  host: "database-1.c7l3lp7npccg.ap-northeast-2.rds.amazonaws.com",
+  user: "admin",
+  password: "ckdmsdn330!!",
   database: "optt",
+  port: "3306",
 });
 
 // MySQL 연결
@@ -35,11 +37,74 @@ exports.login = (req, res) => {
         });
         res.end();
       } else {
-        res.send({ msg: "로그인 실패", token: results[0].token });
+        res.send({ msg: "로그인 실패", token: results[0] });
         res.end();
       }
     }
   );
+};
+
+// 소셜 로그인 - 카카오
+exports.kakao = async (req, res) => {
+  const code = req.query.code;
+  try {
+    // Access token 가져오기
+    const res1 = await Axios.post(
+      "https://kauth.kakao.com/oauth/token",
+      {},
+      {
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        params: {
+          grant_type: "authorization_code",
+          client_id: CONFIG.KAKAO.RESTAPIKEY,
+          code,
+          redirect_uri:
+            (CONFIG.PRODUCT ? "https://" : "http://") +
+            req.headers.host +
+            "/api/auth/kakao",
+        },
+      }
+    );
+
+    // Access token을 이용해 정보 가져오기
+    const res2 = await Axios.post(
+      "https://kapi.kakao.com/v2/user/me",
+      {},
+      {
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+          Authorization: "Bearer " + res1.data.access_token,
+        },
+      }
+    );
+    console.log(res2.data);
+
+    const data = res2.data;
+    const row = (
+      await db.query(
+        `select * from user where snsPrimaryKey=? and snsType="kakao"`,
+        [data.id]
+      )
+    )[0];
+    if (row) {
+      // 회원가입된 유저
+      req.session.userId = row.id;
+      req.session.save(() => {});
+      res.redirect("http://localhost:4100");
+      return;
+    }
+    res.redirect(
+      "http://localhost:4100/auth/signup?token=" +
+        (data.properties && data.properties.nickname
+          ? "&name=" + encodeURIComponent(data.properties.nickname)
+          : "")
+    );
+  } catch (e) {
+    console.log(e);
+    res.status(400).end("Sorry, Login Error!");
+  }
 };
 
 // 회원가입
@@ -119,7 +184,7 @@ exports.user = (req, res) => {
 
 // 프로필 업로드
 exports.profile = (req, res, next) => {
-  const { username } = req.body;
+  const username = req.header('Custom-Headers');
   const file = req.file;
   console.log(file);
   if (file) {
@@ -131,6 +196,7 @@ exports.profile = (req, res, next) => {
           res.send({ msg: "프로필 업로드 실패" });
           res.end();
         } else {
+          console.log(file.filename, username)
           res.send({ msg: "프로필 업로드 성공", url: file.filename });
           res.end();
         }
@@ -146,10 +212,12 @@ exports.result = (req, res) => {
     connection.query(
       "SELECT result FROM user WHERE username=?",
       [username],
-      function (error, results, fields) {
-        if (results.length <= 0) {
-          connection.query("UPDATE stats SET total_users+=1");
-        }
+      function (error, results, fields) { 
+        console.log(results)
+        if (!results.result) {
+          console.log('result', results)
+          connection.query("INSERT INTO stats (result) VALUES (?)", [result]);
+        } 
         connection.query(
           "UPDATE user SET result=? WHERE username=?",
           [result, username],
@@ -166,9 +234,17 @@ exports.result = (req, res) => {
       }
     );
   } else {
-    connection.query("UPDATE stats SET total_users=total_users+1");
-    res.send({ msg: "비로그인 사용자 +1" });
-    res.end();
+    connection.query("INSERT INTO stats (result) VALUES (?)", [result],
+    function (error, results, fields) {
+      if (error) {
+        res.send({ msg: "결과 저장 실패" });
+        res.end();
+      } else {
+        res.send({ msg: "비로그인 사용자 +1" });
+        res.end();
+      }
+    }
+    );
   }
 };
 
@@ -176,7 +252,7 @@ exports.result = (req, res) => {
 exports.total = (req, res) => {
   const { username } = req.body;
   connection.query(
-    "SELECT total_users FROM stats",
+    "SELECT stats_id FROM stats",
     function (error, results, fields) {
       if (error) {
         res.send({ msg: "사용자 수를 불러오는데 실패" });
@@ -192,10 +268,11 @@ exports.total = (req, res) => {
 exports.list = (req, res) => {
   const username = req.body;
   connection.query(
-    "SELECT * FROM comments ORDER BY createdAt DESC LIMIT 10",
+    "SELECT comments.*, user.profile FROM comments JOIN user ON comments.username = user.username ORDER BY comments.createdAt DESC LIMIT 10",
     function (error, results, fields) {
       if (error) throw error;
       if (results.length > 0) {
+        console.log("시작222");
         res.send({ msg: "불러오기 성공", lists: results });
         res.end();
       } else {
@@ -209,9 +286,10 @@ exports.list = (req, res) => {
 // 댓글 쓰기 - 시간은 나중에
 exports.create = (req, res) => {
   const { username, comment } = req.body;
+  const date = new Date();
   connection.query(
-    "INSERT INTO comments (comment, username) VALUES (?, ?)",
-    [comment, username],
+    "INSERT INTO comments (comment, createdAt, username) VALUES (?, ?, ?)",
+    [comment, date, username],
     function (error, results, fields) {
       if (error) throw error;
       else {
@@ -260,10 +338,12 @@ exports.delete = (req, res) => {
 
 // 좋아요
 exports.like = (req, res) => {
-  const { comment_id, likes } = req.body;
+  const { username, comment_id, likes } = req.body;
+  console.log(username, comment_id, likes)
+  const like1 = likes+1;
   connection.query(
-    "UPDATE comments SET likes=?+1 WHERE comment_id=?",
-    [likes, comment_id],
+    "UPDATE comments SET likes=? WHERE comment_id=?",
+    [like1, comment_id],
     function (error, results, fields) {
       if (error) {
         res.send({ msg: "다시 시도해주세요" });
@@ -278,9 +358,11 @@ exports.like = (req, res) => {
 
 // 좋아요 취소
 exports.unlike = (req, res) => {
-  const { comment_id, likes } = req.body;
+  const { username, comment_id, likes } = req.body;
+  console.log(username, comment_id, likes, '좋아요 취소')
+  const unlike1 = likes-1;
   connection.query(
-    "UPDATE comments SET likes=?-1 WHERE comment_id= ?",
+    "UPDATE comments SET likes=?-1 WHERE=?",
     [likes, comment_id],
     function (error, results, fields) {
       if (error) {
