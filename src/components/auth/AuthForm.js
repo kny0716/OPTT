@@ -1,4 +1,25 @@
 import Button from "../common/Button";
+import { GoogleLogin } from "@react-oauth/google";
+import { GoogleOAuthProvider } from "@react-oauth/google";
+
+export const GoogleLoginButton = () => {
+  const clientId =
+    "240613383820-is61ts08q1if74vopesi9pn61ca7aqji.apps.googleusercontent.com";
+  return (
+    <>
+      <GoogleOAuthProvider clientId={clientId}>
+        <GoogleLogin
+          onSuccess={(res) => {
+            console.log(res);
+          }}
+          onFailure={(err) => {
+            console.log(err);
+          }}
+        />
+      </GoogleOAuthProvider>
+    </>
+  );
+};
 
 const titleMap = {
   login: {
@@ -121,6 +142,7 @@ export default function AuthForm({ type, value, onChange, onSubmit }) {
                 <a href={GOOGLE_URL}>
                   <img src="/img/auth/google.svg" alt="google" />
                 </a>
+                <GoogleLoginButton />
               </div>
             </div>
           </>
