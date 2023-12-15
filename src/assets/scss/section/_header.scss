@@ -89,6 +89,12 @@
         }
       }
     }
+
+    .mobile_modal_btn {
+      width: 24px;
+      height: 24px;
+      margin: 0 6px 0 12px;
+    }
   }
 
   @include tablet {

@@ -40,10 +40,6 @@ export default function AuthForm({ type, value, onChange, onSubmit }) {
   const { username, password, passwordCheck } = value;
   const { usernameChange, passwordChange, passwordCheckChange } = onChange;
 
-  const NAVER_URL = "";
-  const GOOGLE_URL = "";
-  const KAKAO_URL = "";
-
   const handleKeyDown = (event) => {
     if (event.key === "Enter") {
       onSubmit();
@@ -131,9 +127,9 @@ export default function AuthForm({ type, value, onChange, onSubmit }) {
           <>
             <div className="login__line" />
             <div className="login__sns__block">
-              <p>SNS 간편 로그인</p>
+              <p>Google 간편 로그인</p>
               <div className="login__sns__button">
-                <a href={NAVER_URL}>
+                {/* <a href={NAVER_URL}>
                   <img src="/img/auth/naver.svg" alt="naver" />
                 </a>
                 <a href={KAKAO_URL}>
@@ -141,7 +137,7 @@ export default function AuthForm({ type, value, onChange, onSubmit }) {
                 </a>
                 <a href={GOOGLE_URL}>
                   <img src="/img/auth/google.svg" alt="google" />
-                </a>
+                </a> */}
                 <GoogleLoginButton />
               </div>
             </div>

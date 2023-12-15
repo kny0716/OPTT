@@ -19,7 +19,7 @@
   justify-content: center;
   align-items: center;
   h1 {
-    margin: 50px 0 0 0;
+    margin: 70px 0 0 0;
     font-size: 2.5rem;
     color: #080635;
     font-family: "NPSfont_extrabold";
@@ -38,12 +38,20 @@
     margin: 50px 0 0 0;
     object-fit: contain;
   }
+
   .result__explain__form {
     width: 53vw;
+    margin: 50px 0 0 0;
     h1 {
       font-size: 2.25rem;
       color: #080635;
       font-weight: 700;
+    }
+
+    .result__explain {
+      margin: 30px 0 100px 0;
+      font-size: 1.5rem;
+      font-family: "NPSfont_regular";
     }
   }
 

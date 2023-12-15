@@ -1,10 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import Main from "../components/section/Main";
 import Total from "../containers/home/Total";
 
 const Home = () => {
-  const [isListHover, setIsListHover] = useState(false);
-
   return (
     <Main>
       <div id="main__page">
@@ -18,16 +16,6 @@ const Home = () => {
           />
           <li>
             <a href="/survey">
-              {/* <img
-                onMouseOver={() => setIsListHover(true)}
-                onMouseOut={() => setIsListHover(false)}
-                src={
-                  isListHover
-                    ? "/img/hover_start_button.svg"
-                    : "/img/start_button.svg"
-                }
-                alt=""
-              /> */}
               <img src={"/img/start_button.svg"}></img>
             </a>
             <Total />
