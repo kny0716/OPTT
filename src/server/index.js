@@ -7,10 +7,19 @@ const publicPath = path.join(__dirname, "public");
 const user = require("./user");
 const passport = require("passport");
 const GoogleStrategy = require("passport-google-oauth").OAuth2Strategy;
+var axios = require("axios");
 
 const port = 8080;
 const app = express();
 module.exports = app;
+
+app.set("port", process.env.PORT || 8080);
+
+app.use(express.static(path.join(__dirname, "OPTT/build")));
+
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "/OPTT/index.html"));
+});
 
 // app.use(cors({
 //   origin: 'https://your-client-domain.com', // 특정 도메인만 허용
@@ -22,7 +31,8 @@ module.exports = app;
 passport.use(
   new GoogleStrategy(
     {
-      clientID: "240613383820-is61ts08q1if74vopesi9pn61ca7aqji.apps.googleusercontent.com",
+      clientID:
+        "240613383820-is61ts08q1if74vopesi9pn61ca7aqji.apps.googleusercontent.com",
       clientSecret: "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",
       callbackURL: "http://localhost:3000/auth/google/callback",
       passReqToCallback: true,
@@ -82,34 +92,38 @@ app.post("/like", user.like);
 app.post("/unlike", user.unlike);
 
 // Google login route
-app.get('/auth/google',
-  passport.authenticate('google', { scope: ['profile', 'email'] })
+app.get(
+  "/auth/google",
+  passport.authenticate("google", { scope: ["profile", "email"] })
 );
 
 // Google callback route
-app.get('/auth/google/callback',
-  passport.authenticate('google', { failureRedirect: '/' }),
+app.get(
+  "/auth/google/callback",
+  passport.authenticate("google", { failureRedirect: "/" }),
   (req, res) => {
     // 여기에서 로그인 성공 후 리다이렉션 또는 응답을 처리합니다.
-    res.redirect('/');
+    res.redirect("/");
   }
 );
 
 // Google token validation and user creation route
-app.post('/api/google-login', async (req, res) => {
+app.post("/api/google-login", async (req, res) => {
   const { tokenId } = req.body;
 
   // Google 토큰을 Google에 확인 요청
   try {
-    const response = await axios.get(`https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=${tokenId}`);
+    const response = await axios.get(
+      `https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=${tokenId}`
+    );
     const { sub, email, name, picture } = response.data;
 
     // 여기에서 사용자 정보를 처리하거나 데이터베이스에 저장합니다.
     // 예를 들어, 사용자 정보를 응답으로 클라이언트에게 보낼 수 있습니다.
     res.json({ userId: sub, email, name, picture });
   } catch (error) {
-    console.error('Google 토큰 확인에 실패했습니다.', error);
-    res.status(500).send('Internal Server Error');
+    console.error("Google 토큰 확인에 실패했습니다.", error);
+    res.status(500).send("Internal Server Error");
   }
 });
 
