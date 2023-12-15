@@ -37,7 +37,7 @@ exports.login = (req, res) => {
         });
         res.end();
       } else {
-        res.send({ msg: "로그인 실패", token: results[0].token });
+        res.send({ msg: "로그인 실패", token: results[0] });
         res.end();
       }
     }
