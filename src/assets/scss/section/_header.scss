@@ -34,7 +34,7 @@
   ul {
     display: flex;
     margin: 137px;
-    font-family: "Nanum Gothic", sans-serif;
+    font-family: "NPSfont_regular";
     li {
       font-size: 0.875rem;
       font-weight: 700;
@@ -63,7 +63,8 @@
     width: 35px;
     height: 35px;
     border-radius: 100%;
-    object-fit: contain;
+    border: 1px solid #9d9d9d;
+    object-fit: cover;
   }
 
   .modal_btn {

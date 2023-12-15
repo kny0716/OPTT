@@ -122,7 +122,7 @@ export default function Survey() {
       setLoading(true);
       setTimeout(() => {
         navigate("/result");
-      }, 5000);
+      }, 4000);
     } else {
       set_question_number(question_number + 1);
       set_survey_result(
@@ -151,7 +151,7 @@ export default function Survey() {
       setLoading(true);
       setTimeout(() => {
         navigate("/result");
-      }, 5000);
+      }, 4000);
     } else {
       set_question_number(question_number + 1);
       set_survey_result(

@@ -23,7 +23,7 @@ const Loading = () => {
       setCurrentImageIndex((prevIndex) =>
         prevIndex === imageUrls.length - 1 ? 0 : prevIndex + 1
       );
-    }, 1000);
+    }, 400);
 
     return () => clearInterval(intervalId);
   }, [imageUrls.length]);

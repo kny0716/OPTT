@@ -18,7 +18,7 @@ const Home = () => {
           />
           <li>
             <a href="/survey">
-              <img
+              {/* <img
                 onMouseOver={() => setIsListHover(true)}
                 onMouseOut={() => setIsListHover(false)}
                 src={
@@ -27,9 +27,9 @@ const Home = () => {
                     : "/img/start_button.svg"
                 }
                 alt=""
-              />
+              /> */}
+              <img src={"/img/start_button.svg"}></img>
             </a>
-            {/* <h3>지금까지 총 10,000명이 참여 하였습니다.</h3> */}
             <Total />
           </li>
         </div>
