@@ -5,12 +5,13 @@
   h1 {
     padding: 81px 0 0 0;
     font-size: 4rem;
-    font-weight: 600;
     color: var(--textColor);
+    font-family: "NPSfont_extrabold";
   }
 
   p {
     font-size: 1.5rem;
+    font-family: "NPSfont_regular";
     color: #b8b8b8;
     margin-top: 10px;
   }
@@ -31,12 +32,16 @@
         height: 6.875rem;
         object-fit: contain;
         filter: drop-shadow(0 0 0.7rem rgb(0 0 0 / 50%));
+
+        &:hover {
+          transform: translate(3px, 1px);
+        }
       }
       h3 {
         display: block;
         margin-top: 1%;
         font-size: 1.5rem;
-        font-weight: 600;
+        font-family: "NPSfont_bold";
         color: var(--white);
         z-index: 999;
       }

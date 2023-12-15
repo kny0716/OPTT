@@ -16,7 +16,7 @@
     border: none;
     outline: none;
     font-size: 0.875rem;
-    font-weight: 700;
+    font-family: "NPSfont_bold";
   }
 
   input::placeholder {
@@ -88,6 +88,7 @@
 
   font-size: 0.8125rem;
   font-weight: 700;
+  font-family: "NPSfont_bold";
   color: #383fb0;
 
   white-space: nowrap;
@@ -148,14 +149,14 @@
 
 .register__form__label {
   font-size: 0.75rem;
-  font-weight: 700;
+  font-family: "NPSfont_bold";
 }
 
 .password__condition {
   margin: 5px 0 18px 15px;
   font-size: 0.75rem;
   color: #a8a8a8;
-  font-weight: 700;
+  font-family: "NPSfont_bold";
 
   @include mobile {
     font-size: 0.786rem;
@@ -175,7 +176,7 @@
   align-items: center;
 
   color: #fff;
-  font-weight: 800;
+  font-family: "NPSfont_extrabold";
 
   &:hover {
     color: #fff;
@@ -217,6 +218,7 @@
     margin: 0 0 22px 0;
     font-weight: 700;
     font-size: 0.875rem;
+    font-family: "NPSfont_bold";
     color: rgba(12, 8, 86, 0.8);
   }
 }
@@ -228,7 +230,7 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
 
   img {
     width: 60px;

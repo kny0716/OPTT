@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import { loginState } from "../../atoms";
 import { useNavigate } from "react-router-dom";
 import instance from "../../lib/axios";
-import e from "cors";
 
 export default function Login() {
   const [login, setLogin] = useRecoilState(loginState);
@@ -38,11 +37,15 @@ export default function Login() {
     const userdata = getUser(username, password);
     const getData = () => {
       userdata.then((res) => {
-        setLogin({
-          username: username,
-          password: password,
-          token: res.data.token,
-        });
+        if (res.data.msg !== "로그인 실패") {
+          setLogin({
+            username: username,
+            password: password,
+            token: res.data.result.token,
+          });
+        } else {
+          alert("아이디 또는 비밀번호가 틀렸습니다.");
+        }
       });
     };
     getData();

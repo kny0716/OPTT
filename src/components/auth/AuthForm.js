@@ -1,4 +1,25 @@
 import Button from "../common/Button";
+import { GoogleLogin } from "@react-oauth/google";
+import { GoogleOAuthProvider } from "@react-oauth/google";
+
+export const GoogleLoginButton = () => {
+  const clientId =
+    "240613383820-is61ts08q1if74vopesi9pn61ca7aqji.apps.googleusercontent.com";
+  return (
+    <>
+      <GoogleOAuthProvider clientId={clientId}>
+        <GoogleLogin
+          onSuccess={(res) => {
+            console.log(res);
+          }}
+          onFailure={(err) => {
+            console.log(err);
+          }}
+        />
+      </GoogleOAuthProvider>
+    </>
+  );
+};
 
 const titleMap = {
   login: {
@@ -18,10 +39,6 @@ const titleMap = {
 export default function AuthForm({ type, value, onChange, onSubmit }) {
   const { username, password, passwordCheck } = value;
   const { usernameChange, passwordChange, passwordCheckChange } = onChange;
-
-  const NAVER_URL = "";
-  const GOOGLE_URL = "";
-  const KAKAO_URL = "";
 
   const handleKeyDown = (event) => {
     if (event.key === "Enter") {
@@ -110,9 +127,9 @@ export default function AuthForm({ type, value, onChange, onSubmit }) {
           <>
             <div className="login__line" />
             <div className="login__sns__block">
-              <p>SNS 간편 로그인</p>
+              <p>Google 간편 로그인</p>
               <div className="login__sns__button">
-                <a href={NAVER_URL}>
+                {/* <a href={NAVER_URL}>
                   <img src="/img/auth/naver.svg" alt="naver" />
                 </a>
                 <a href={KAKAO_URL}>
@@ -120,7 +137,8 @@ export default function AuthForm({ type, value, onChange, onSubmit }) {
                 </a>
                 <a href={GOOGLE_URL}>
                   <img src="/img/auth/google.svg" alt="google" />
-                </a>
+                </a> */}
+                <GoogleLoginButton />
               </div>
             </div>
           </>

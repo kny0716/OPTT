@@ -11,7 +11,7 @@
   width: 67vw;
   background-color: #fff;
   margin: 65px 0 0 0;
-  border: 5px solid rgba($color: #080635, $alpha: 0.2);
+  border: 1px solid rgba($color: #080635, $alpha: 0.2);
   border-radius: 16px;
 
   display: flex;
@@ -19,10 +19,17 @@
   justify-content: center;
   align-items: center;
   h1 {
+    margin: 70px 0 0 0;
+    font-size: 2.5rem;
+    color: #080635;
+    font-family: "NPSfont_extrabold";
+  }
+
+  h2 {
     margin: 50px 0 0 0;
     font-size: 2.25rem;
     color: #080635;
-    font-weight: 700;
+    font-family: "NPSfont_bold";
   }
 
   img {
@@ -31,12 +38,20 @@
     margin: 50px 0 0 0;
     object-fit: contain;
   }
+
   .result__explain__form {
     width: 53vw;
+    margin: 50px 0 0 0;
     h1 {
       font-size: 2.25rem;
       color: #080635;
       font-weight: 700;
+    }
+
+    .result__explain {
+      margin: 30px 0 100px 0;
+      font-size: 1.5rem;
+      font-family: "NPSfont_regular";
     }
   }
 
@@ -46,20 +61,23 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+
     p {
       font-size: 1.5rem;
-      font-weight: 700;
+      font-family: "NPSfont_bold";
     }
     img {
       width: 70px;
       height: 70px;
       margin: 20px 0 0 0;
+      cursor: pointer;
     }
   }
 
   .restart__btn {
     width: 370px;
     height: 80px;
+    cursor: pointer;
   }
 
   @include mobile {
@@ -139,14 +157,12 @@
   margin: 70px 0 10px 0;
 
   @include mobile {
-    // 수정 필요 guest!!
     width: 80%;
     margin: 30px 0 10px 0;
     font-size: 1.2rem;
   }
 
   @include tablet {
-    // 얘도!
     width: 80%;
     margin: 30px 0 10px 0;
   }
@@ -157,7 +173,7 @@
   margin: 90px 0 0 0;
   p {
     font-size: 1.5rem;
-    font-weight: 700;
+    font-family: "NPSfont_bold";
   }
   input {
     height: 80px;
@@ -166,6 +182,8 @@
     border-radius: 12px;
     margin: 8px 0 0 0;
     padding: 0 0 0 15px;
+    font-size: 1rem;
+    font-family: "NPSfont_bold";
   }
   .submit__btn__container {
     display: flex;
@@ -180,7 +198,10 @@
       color: #080635;
       font-size: 0.875rem;
       font-weight: 700;
+      font-family: "NPSfont_bold";
       margin: 15px 0 0 0;
+
+      cursor: pointer;
     }
   }
 
@@ -235,7 +256,7 @@
         width: 3.5vw;
         height: 3.5vw;
         border-radius: 100%;
-        object-fit: contain;
+        object-fit: cover;
         margin: 0 0 0 0;
       }
       .comment__title__contents {
@@ -246,12 +267,12 @@
         padding: 0 0 0 8px;
         .username {
           font-size: 1.25rem;
-          font-weight: 600;
+          font-family: "NPSfont_bold";
           color: #000000;
         }
         .date {
           font-size: 0.625rem;
-          font-weight: 600;
+          font-family: "NPSfont_bold";
           color: rgba($color: #080635, $alpha: 0.5);
         }
       }
@@ -267,6 +288,7 @@
           height: 15px;
           padding: 0 0 0 0;
           margin: 0 3px 0 0;
+          cursor: pointer;
         }
       }
     }
@@ -276,7 +298,8 @@
     padding: 5px 0;
     .comment {
       font-size: 1.25rem;
-      padding: 0 0 0 15px;
+      font-family: "NPSfont_regular";
+      padding: 12px 0 0 0;
     }
     .comment__edit__input {
       width: 100%;
@@ -289,6 +312,7 @@
         width: 90%;
         height: 100%;
         font-size: 1.25rem;
+        font-family: "NPSfont_regular";
         background-color: none;
         border-radius: 10px;
         border: 1.5px solid #383fb0;
@@ -303,6 +327,9 @@
         background-color: #fff;
         color: #080635;
         font-size: 1rem;
+        font-family: "NPSfont_bold";
+
+        cursor: pointer;
       }
     }
   }
@@ -317,9 +344,11 @@
       height: 20px;
       object-fit: contain;
       margin: 0 5px 0 0;
+      cursor: pointer;
     }
     p {
       font-size: 0.9375rem;
+      font-family: "NPSfont_regular";
     }
   }
 
