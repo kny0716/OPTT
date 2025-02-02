@@ -1,4 +1,8 @@
-![Image](https://github.com/user-attachments/assets/bdcc06b7-3003-45aa-8767-cd4a551cb2c5)
+
+
+https://github.com/user-attachments/assets/c0cd3cd2-e5df-4d48-8164-7c33965769f9
+
+
 
 OPTT API 명세서
 공통 : msg (성공, 실패)
