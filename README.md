@@ -6,8 +6,6 @@ https://github.com/user-attachments/assets/c0cd3cd2-e5df-4d48-8164-7c33965769f9
 
 > 설문조사를 기반으로 사용자가 선호할 만한 OTT 플랫폼을 추천하는 웹사이트  
 
-🔗 [GitHub Repository](https://github.com/kny0716/Webprogramming.git)
-
 ---
 
 ## 📌 프로젝트 개요
